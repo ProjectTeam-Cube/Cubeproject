@@ -1,0 +1,14 @@
+com.example.cube.app-jetified-window-1.0.0-beta04-0 C:\Users\hi\.gradle\caches\transforms-3\032f4dff274e516110d9363a9793a3e3\transformed\jetified-window-1.0.0-beta04\res
+com.example.cube.app-jetified-window-java-1.0.0-beta04-1 C:\Users\hi\.gradle\caches\transforms-3\142c24f2530665bb6deb4123ab140714\transformed\jetified-window-java-1.0.0-beta04\res
+com.example.cube.app-core-1.6.0-2 C:\Users\hi\.gradle\caches\transforms-3\2579a7de00054bf46a8dbc332552f622\transformed\core-1.6.0\res
+com.example.cube.app-media-1.1.0-3 C:\Users\hi\.gradle\caches\transforms-3\30f019b4abc95840d13619d9b235449b\transformed\media-1.1.0\res
+com.example.cube.app-jetified-annotation-experimental-1.1.0-4 C:\Users\hi\.gradle\caches\transforms-3\3f96ca76068ab400b494bc7d541ee256\transformed\jetified-annotation-experimental-1.1.0\res
+com.example.cube.app-debug-5 C:\Users\hi\Desktop\Cubeproject1\android\app\src\debug\res
+com.example.cube.app-main-6 C:\Users\hi\Desktop\Cubeproject1\android\app\src\main\res
+com.example.cube.app-pngs-7 C:\Users\hi\Desktop\Cubeproject1\build\app\generated\res\pngs\debug
+com.example.cube.app-resValues-8 C:\Users\hi\Desktop\Cubeproject1\build\app\generated\res\resValues\debug
+com.example.cube.app-rs-9 C:\Users\hi\Desktop\Cubeproject1\build\app\generated\res\rs\debug
+com.example.cube.app-mergeDebugResources-10 C:\Users\hi\Desktop\Cubeproject1\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
+com.example.cube.app-mergeDebugResources-11 C:\Users\hi\Desktop\Cubeproject1\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
+com.example.cube.app-merged_res-12 C:\Users\hi\Desktop\Cubeproject1\build\app\intermediates\merged_res\debug
+com.example.cube.app-packaged_res-13 C:\Users\hi\Desktop\Cubeproject1\build\flutter_local_notifications\intermediates\packaged_res\debug
