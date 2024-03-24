@@ -1,0 +1,4 @@
+#Sun Mar 24 15:34:28 KST 2024
+base.0=C\:\\Users\\bjh73\\Downloads\\Cubeproject-Schedule\\Cubeproject-Schedule\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
