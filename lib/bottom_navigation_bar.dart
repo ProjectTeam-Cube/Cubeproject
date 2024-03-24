@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 
 import 'app_bar.dart';
-import 'main.dart';
 import 'MyFormBody.dart';
-import 'login.dart';
+import 'Login.dart';
+import 'Agreement.dart';
+import 'SignUp.dart';
+import 'SignUp_finish.dart';
 
 // 각 탭에 대응하는 페이지 위젯들
 class HomePage extends StatelessWidget {
@@ -20,7 +22,7 @@ class HomePage extends StatelessWidget {
           //SizedBox(height: 20), // 버튼과 텍스트 사이의 간격을 조금 두겠습니다.
           ElevatedButton(
             onPressed: () {
-              // 로그인 버튼이 눌리면 새로운 페이지로 이동합니다.
+              // 로그인 버튼이 누르면 LoginPage로 이동
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -28,6 +30,41 @@ class HomePage extends StatelessWidget {
               );
             },
             child: Text('로그인'),
+          ),
+          SizedBox(height: 20),
+          ElevatedButton(
+              onPressed: () {
+                //버튼 기능
+                // 회원가입 버튼 누르면 SignUp 페이지로 이동
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Agreement()),
+                );
+              },
+              child: Text('이용약관'),
+          ),
+          SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => SingUp()),
+              );
+            },
+            child: Text('회원가입'),
+          ),
+          SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => SingUp_finish()),
+              );
+            },
+            child: Text('회원가입 완료'),
           ),
         ],
       ),

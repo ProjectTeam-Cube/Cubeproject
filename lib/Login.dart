@@ -3,11 +3,31 @@ import 'package:material_text_fields/material_text_fields.dart';
 import 'package:material_text_fields/theme/material_text_field_theme.dart';
 import 'package:material_text_fields/utils/form_validation.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Padding(
+          padding: EdgeInsets.fromLTRB(1.0, 8.0, 8.0, 8.0),
+          child: Text(
+            '로그인',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF393939)
+            ),
+          ),
+        ),
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -93,7 +113,7 @@ class LoginPage extends StatelessWidget {
                 foregroundColor: Colors.white, // 버튼 내 텍스트의 색상
                 backgroundColor: const Color(0xFFFF6F0F), // 버튼 배경색
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 40, vertical: 20), // 버튼의 내부 패딩
+                    horizontal: 200, vertical: 26), // 버튼의 내부 패딩
                 shape: RoundedRectangleBorder(
                   // 버튼의 모양 설정
                   borderRadius: BorderRadius.circular(13.0),
