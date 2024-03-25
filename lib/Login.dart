@@ -6,6 +6,13 @@ import 'package:material_text_fields/utils/form_validation.dart';
 
 import 'SignUp.dart';
 import 'CheckBox.dart';
+import 'main.dart';
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:cube/auth_service.dart';
+import 'bottom_navigation_bar.dart';
+import 'ButtonList.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -15,9 +22,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    //Provider를 통한 AuthService 사용
+    final AuthService authService = Provider.of<AuthService>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -71,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                 labelText: 'ID',
                 textInputAction: TextInputAction.next,
                 prefixIcon: const Icon(Icons.person),
-                //controller: _nameController,
+                controller: emailController,
                 validator: FormValidation.emailTextField,
                 theme: FilledOrOutlinedTextTheme(
                   radius: 15,
@@ -102,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                 labelText: 'Password',
                 textInputAction: TextInputAction.next,
                 prefixIcon: const Icon(Icons.password),
-                //controller: _nameController,
+                controller: passwordController,
                 validator: FormValidation.emailTextField,
                 theme: FilledOrOutlinedTextTheme(
                   radius: 15,
@@ -161,7 +172,28 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.only(right: 16, left: 16),
                 child: ElevatedButton(
                   onPressed: () {
-                    // 버튼을 눌렀을 때 수행할 동작을 여기에 추가하세요.
+                    // 로그인
+                    authService.signIn(
+                        email: emailController.text,
+                        password: passwordController.text,
+                        onSuccess: () {
+                      // 로그인 성공
+                      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      //   content: Text("로그인 성공"),
+                      // ));
+                      //로그인 성공시 ButtonList로 이동
+                      Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => ButtonList()),
+                      );
+                    },
+                    onError: (err){
+                          //에러 발생
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(err),
+                      ));
+                    },
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white, // 버튼 내 텍스트의 색상
