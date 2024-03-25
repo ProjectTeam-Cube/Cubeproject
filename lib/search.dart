@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io';
 
 class SearchbarAnimationExample extends StatefulWidget {
   const SearchbarAnimationExample({Key? key}) : super(key: key);
@@ -11,11 +14,38 @@ class SearchbarAnimationExample extends StatefulWidget {
       _SearchbarAnimationExampleState();
 }
 
-class _SearchbarAnimationExampleState extends State<SearchbarAnimationExample> {
+class ContactInfo {
+  String name;
+  String phoneNumber;
+  String imagePath;
 
+  ContactInfo(
+      {required this.name,
+      required this.phoneNumber,
+      this.imagePath = 'assets/images/leedohyun.jpg'});
+
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'phone': phoneNumber,
+        'imagePath': imagePath,
+      };
+
+  factory ContactInfo.fromJson(Map<String, dynamic> json) {
+    return ContactInfo(
+      name: json['name'],
+      phoneNumber: json['phone'],
+      imagePath: json['imagePath'] ?? 'assets/images/leedohyun.jpg',
+    );
+  }
+}
+
+class _SearchbarAnimationExampleState extends State<SearchbarAnimationExample> {
   String _name = '';
   String _phone = '';
   String _email = '';
+  String? _imagePath;
+
+  List<ContactInfo> _userList = [];
 
   @override
   void initState() {
@@ -23,13 +53,18 @@ class _SearchbarAnimationExampleState extends State<SearchbarAnimationExample> {
     _loadSavedData();
   }
 
-  _loadSavedData() async {
+  Future<void> _loadSavedData() async {
     final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _name = prefs.getString('name') ?? 'No name saved';
-      _phone = prefs.getString('phone') ?? 'No phone saved';
-      _email = prefs.getString('email') ?? 'No email saved';
-    });
+    final String? contactInfoListJson = prefs.getString('contactInfoList');
+    if (contactInfoListJson != null) {
+      print("Loaded data: $contactInfoListJson"); // 로그 출력
+      Iterable decoded = json.decode(contactInfoListJson);
+      setState(() {
+        _userList = decoded.map((json) => ContactInfo.fromJson(json)).toList();
+      });
+    } else {
+      print("No data found"); // 데이터가 없을 때 로그 출력
+    }
   }
 
   @override
@@ -55,23 +90,26 @@ class _SearchbarAnimationExampleState extends State<SearchbarAnimationExample> {
                     prefixIcon: Icon(Icons.search),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(color: Colors.transparent), // 테두리를 투명하게
+                      borderSide:
+                          BorderSide(color: Colors.transparent), // 테두리를 투명하게
                     ),
-                    enabledBorder: OutlineInputBorder( // 기본 상태의 테두리도 투명하게
+                    enabledBorder: OutlineInputBorder(
+                      // 기본 상태의 테두리도 투명하게
                       borderRadius: BorderRadius.circular(20),
                       borderSide: BorderSide(color: Colors.transparent),
                     ),
-                    focusedBorder: OutlineInputBorder( // 포커스 상태의 테두리도 투명하게
+                    focusedBorder: OutlineInputBorder(
+                      // 포커스 상태의 테두리도 투명하게
                       borderRadius: BorderRadius.circular(20),
                       borderSide: BorderSide(color: Colors.transparent),
                     ),
-                    contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     filled: true,
                     fillColor: Colors.grey[200],
                   ),
                 ),
               ),
-
               ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
@@ -138,6 +176,13 @@ class _SearchbarAnimationExampleState extends State<SearchbarAnimationExample> {
                   children: <Widget>[
                     Text('Name: $_name'),
                     Text('Phone: $_phone'),
+                    // 이미지 경로가 있으면 이미지를 표시하고, 없으면 기본 이미지 표시
+                    CircleAvatar(
+                      radius: 25,
+                      backgroundImage: _imagePath != null
+                          ? FileImage(File(_imagePath!)) as ImageProvider
+                          : AssetImage('assets/images/leedohyun.jpg'),
+                    ),
                   ],
                 ),
               ),

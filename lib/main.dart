@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cube/search.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,8 +12,6 @@ import 'bottom_navigation_bar.dart';
 void main() {
   runApp(const MyApp());
 }
-
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -52,7 +52,6 @@ class FormValidation {
   }
 }
 
-
 class MyFormBody extends StatefulWidget {
   const MyFormBody({Key? key}) : super(key: key);
 
@@ -61,13 +60,12 @@ class MyFormBody extends StatefulWidget {
 }
 
 class _MyFormBodyState extends State<MyFormBody> {
-
   File? _image;
   final ImagePicker _picker = ImagePicker();
 
   Future<void> getImage() async {
-    final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-
+    final XFile? pickedFile =
+        await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
@@ -80,21 +78,9 @@ class _MyFormBodyState extends State<MyFormBody> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController =
-  TextEditingController(); // 전화번호 입력 컨트롤러 추가
+      TextEditingController(); // 전화번호 입력 컨트롤러 추가
 
   bool _showMore = false;
-
-  void _saveData() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('name', _nameController.text);
-      await prefs.setString('phone', _phoneController.text);
-      await prefs.setString('email', _emailController.text);
-    } catch (e) {
-      print("저장 중 오류 발생: $e");
-    }
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +101,8 @@ class _MyFormBodyState extends State<MyFormBody> {
                   radius: 80,
                   backgroundImage: _image != null
                       ? FileImage(_image!) as ImageProvider<Object>
-                      : AssetImage('assets/images/leedohyun.jpg') as ImageProvider<Object>,
+                      : AssetImage('assets/images/leedohyun.jpg')
+                          as ImageProvider<Object>,
                   // 선택된 이미지가 없으면 기본 이미지 표시
                 ),
               ),
@@ -134,9 +121,9 @@ class _MyFormBodyState extends State<MyFormBody> {
                 theme: FilledOrOutlinedTextTheme(
                   radius: 15,
                   contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  errorStyle:
-                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  errorStyle: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w700),
                   fillColor: Colors.transparent,
                   prefixIconColor: Color(0xFFFF6F0F),
                   enabledColor: Colors.grey,
@@ -144,7 +131,8 @@ class _MyFormBodyState extends State<MyFormBody> {
                   floatingLabelBehavior: FloatingLabelBehavior.auto,
                   floatingLabelStyle: const TextStyle(color: Color(0xFFFF6F0F)),
                   width: 1.5,
-                  labelStyle: const TextStyle(fontSize: 16, color: Colors.black),
+                  labelStyle:
+                      const TextStyle(fontSize: 16, color: Colors.black),
                 ),
               ),
               const SizedBox(
@@ -161,9 +149,9 @@ class _MyFormBodyState extends State<MyFormBody> {
                 theme: FilledOrOutlinedTextTheme(
                   radius: 15,
                   contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  errorStyle:
-                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  errorStyle: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w700),
                   fillColor: Colors.transparent,
                   prefixIconColor: Color(0xFFFF6F0F),
                   enabledColor: Colors.grey,
@@ -171,7 +159,8 @@ class _MyFormBodyState extends State<MyFormBody> {
                   floatingLabelBehavior: FloatingLabelBehavior.auto,
                   floatingLabelStyle: const TextStyle(color: Color(0xFFFF6F0F)),
                   width: 1.5,
-                  labelStyle: const TextStyle(fontSize: 16, color: Colors.black),
+                  labelStyle:
+                      const TextStyle(fontSize: 16, color: Colors.black),
                 ),
               ),
               const SizedBox(
@@ -188,9 +177,9 @@ class _MyFormBodyState extends State<MyFormBody> {
                 theme: FilledOrOutlinedTextTheme(
                   radius: 15,
                   contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  errorStyle:
-                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  errorStyle: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w700),
                   fillColor: Colors.transparent,
                   prefixIconColor: Color(0xFFFF6F0F),
                   enabledColor: Colors.grey,
@@ -198,7 +187,8 @@ class _MyFormBodyState extends State<MyFormBody> {
                   floatingLabelBehavior: FloatingLabelBehavior.auto,
                   floatingLabelStyle: const TextStyle(color: Color(0xFFFF6F0F)),
                   width: 1.5,
-                  labelStyle: const TextStyle(fontSize: 16, color: Colors.black),
+                  labelStyle:
+                      const TextStyle(fontSize: 16, color: Colors.black),
                 ),
               ),
               if (!_showMore) // _showMore가 false일 때만 버튼을 표시합니다.
@@ -212,11 +202,11 @@ class _MyFormBodyState extends State<MyFormBody> {
                       ? '∧ 항목 숨기기'
                       : '∨ 항목 더보기'), // _showMore 값에 따라 버튼 텍스트를 동적으로 변경합니다.
                 ),
-        
+
               const SizedBox(
                 height: 16,
               ),
-        
+
               //숨겨진 폼
               if (_showMore) ...[
                 MaterialTextField(
@@ -229,26 +219,28 @@ class _MyFormBodyState extends State<MyFormBody> {
                   validator: FormValidation.emailTextField,
                   theme: FilledOrOutlinedTextTheme(
                     radius: 15,
-                    contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                    errorStyle:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 20),
+                    errorStyle: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w700),
                     fillColor: Colors.transparent,
                     prefixIconColor: Color(0xFFFF6F0F),
                     enabledColor: Colors.grey,
                     focusedColor: Color(0xFFFF6F0F),
                     floatingLabelBehavior: FloatingLabelBehavior.auto,
-                    floatingLabelStyle: const TextStyle(color: Color(0xFFFF6F0F)),
+                    floatingLabelStyle:
+                        const TextStyle(color: Color(0xFFFF6F0F)),
                     width: 1.5,
-                    labelStyle: const TextStyle(fontSize: 16, color: Colors.black),
+                    labelStyle:
+                        const TextStyle(fontSize: 16, color: Colors.black),
                   ),
                 ),
                 // 필요한 만큼 MaterialTextField 추가
-        
+
                 const SizedBox(
                   height: 16,
                 ),
-        
+
                 MaterialTextField(
                   keyboardType: TextInputType.emailAddress,
                   hint: '주소',
@@ -259,25 +251,27 @@ class _MyFormBodyState extends State<MyFormBody> {
                   validator: FormValidation.emailTextField,
                   theme: FilledOrOutlinedTextTheme(
                     radius: 15,
-                    contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                    errorStyle:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 20),
+                    errorStyle: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w700),
                     fillColor: Colors.transparent,
                     prefixIconColor: Color(0xFFFF6F0F),
                     enabledColor: Colors.grey,
                     focusedColor: Color(0xFFFF6F0F),
                     floatingLabelBehavior: FloatingLabelBehavior.auto,
-                    floatingLabelStyle: const TextStyle(color: Color(0xFFFF6F0F)),
+                    floatingLabelStyle:
+                        const TextStyle(color: Color(0xFFFF6F0F)),
                     width: 1.5,
-                    labelStyle: const TextStyle(fontSize: 16, color: Colors.black),
+                    labelStyle:
+                        const TextStyle(fontSize: 16, color: Colors.black),
                   ),
                 ),
-        
+
                 const SizedBox(
                   height: 16,
                 ),
-        
+
                 MaterialTextField(
                   keyboardType: TextInputType.emailAddress,
                   hint: '메모',
@@ -288,25 +282,27 @@ class _MyFormBodyState extends State<MyFormBody> {
                   validator: FormValidation.emailTextField,
                   theme: FilledOrOutlinedTextTheme(
                     radius: 15,
-                    contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                    errorStyle:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 20),
+                    errorStyle: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w700),
                     fillColor: Colors.transparent,
                     prefixIconColor: Color(0xFFFF6F0F),
                     enabledColor: Colors.grey,
                     focusedColor: Color(0xFFFF6F0F),
                     floatingLabelBehavior: FloatingLabelBehavior.auto,
-                    floatingLabelStyle: const TextStyle(color: Color(0xFFFF6F0F)),
+                    floatingLabelStyle:
+                        const TextStyle(color: Color(0xFFFF6F0F)),
                     width: 1.5,
-                    labelStyle: const TextStyle(fontSize: 16, color: Colors.black),
+                    labelStyle:
+                        const TextStyle(fontSize: 16, color: Colors.black),
                   ),
                 ),
-        
+
                 const SizedBox(
                   height: 16,
                 ),
-        
+
                 TextButton(
                   onPressed: () {
                     setState(() {
@@ -322,7 +318,7 @@ class _MyFormBodyState extends State<MyFormBody> {
                 padding: const EdgeInsets.only(top: 80.0),
                 child: Row(
                   mainAxisAlignment:
-                  MainAxisAlignment.spaceEvenly, // 버튼 사이에 공간을 균등하게 배분
+                      MainAxisAlignment.spaceEvenly, // 버튼 사이에 공간을 균등하게 배분
                   children: <Widget>[
                     SizedBox(
                       width: MediaQuery.of(context).size.width *
@@ -330,9 +326,9 @@ class _MyFormBodyState extends State<MyFormBody> {
                       height: 45,
                       child: ElevatedButton(
                         style: ButtonStyle(
-                          // backgroundColor: MaterialStateProperty.all(Colors.white), // 버튼 배경색을 하얀색으로 설정
-                          // foregroundColor: MaterialStateProperty.all(Colors.black), // 버튼 텍스트 색상을 검은색으로 설정
-                        ),
+                            // backgroundColor: MaterialStateProperty.all(Colors.white), // 버튼 배경색을 하얀색으로 설정
+                            // foregroundColor: MaterialStateProperty.all(Colors.black), // 버튼 텍스트 색상을 검은색으로 설정
+                            ),
                         child: Text(
                           "취소하기",
                           style: TextStyle(
@@ -356,7 +352,17 @@ class _MyFormBodyState extends State<MyFormBody> {
                           ),
                         ),
                         onPressed: () {
-                          _saveData();
+                          // PhoneInfo 객체 생성
+                          PhoneInfo newInfo = PhoneInfo(
+                            name: _nameController.text,
+                            phone: _phoneController.text,
+                            email: _emailController.text,
+                          );
+
+                          // 새로운 PhoneInfo 객체를 리스트에 추가하고 저장
+                          _savePhoneInfoList(newInfo);
+
+                          // 다음 페이지로 이동
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -374,5 +380,61 @@ class _MyFormBodyState extends State<MyFormBody> {
         ),
       ),
     );
+  }
+}
+
+class PhoneInfo {
+  String name;
+  String phone;
+  String email;
+
+  PhoneInfo({required this.name, required this.phone, required this.email});
+
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'phone': phone,
+        'email': email,
+      };
+
+  factory PhoneInfo.fromJson(Map<String, dynamic> json) {
+    return PhoneInfo(
+      name: json['name'],
+      phone: json['phone'],
+      email: json['email'],
+    );
+  }
+}
+
+Future<void> _savePhoneInfoList(PhoneInfo info) async {
+  try {
+    final prefs = await SharedPreferences.getInstance();
+    final String? phoneInfoListJson = prefs.getString('phoneInfoList');
+    List<PhoneInfo> phoneInfoList = phoneInfoListJson != null
+        ? (json.decode(phoneInfoListJson) as List)
+            .map((item) => PhoneInfo.fromJson(item))
+            .toList()
+        : [];
+    phoneInfoList.add(info);
+    // 데이터를 JSON 문자열로 변환하여 저장
+    await prefs.setString('phoneInfoList',
+        json.encode(phoneInfoList.map((item) => item.toJson()).toList()));
+
+    // 저장 후 바로 데이터를 불러와 로그로 출력하여 확인
+    final String? savedData = prefs.getString('phoneInfoList');
+    print("Saved data: $savedData");
+
+    // 불러온 데이터를 로그로 출력
+    if (savedData != null) {
+      List<dynamic> decodedList = json.decode(savedData);
+      List<PhoneInfo> loadedList =
+          decodedList.map((json) => PhoneInfo.fromJson(json)).toList();
+      print("Loaded list:");
+      loadedList.forEach((phoneInfo) {
+        print(
+            "Name: ${phoneInfo.name}, Phone: ${phoneInfo.phone}, Email: ${phoneInfo.email}");
+      });
+    }
+  } catch (e) {
+    print("Error saving data: $e");
   }
 }
