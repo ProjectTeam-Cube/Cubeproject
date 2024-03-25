@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SearchbarAnimationExample extends StatefulWidget {
   const SearchbarAnimationExample({Key? key}) : super(key: key);
@@ -11,6 +12,26 @@ class SearchbarAnimationExample extends StatefulWidget {
 }
 
 class _SearchbarAnimationExampleState extends State<SearchbarAnimationExample> {
+
+  String _name = '';
+  String _phone = '';
+  String _email = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSavedData();
+  }
+
+  _loadSavedData() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _name = prefs.getString('name') ?? 'No name saved';
+      _phone = prefs.getString('phone') ?? 'No phone saved';
+      _email = prefs.getString('email') ?? 'No email saved';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,39 +48,30 @@ class _SearchbarAnimationExampleState extends State<SearchbarAnimationExample> {
           child: Column(
             children: <Widget>[
               Padding(
-                // SearchBarAnimation 위젯은 이전 코드를 그대로 사용합니다.
-                padding: const EdgeInsets.all(15.0),
-                child: SearchBarAnimation(
-                  textEditingController: TextEditingController(),
-                  isOriginalAnimation: true,
-                  enableKeyboardFocus: true,
-                  onExpansionComplete: () {
-                    debugPrint('do something just after searchbox is opened.');
-                  },
-                  onCollapseComplete: () {
-                    debugPrint('do something just after searchbox is closed.');
-                  },
-                  onPressButton: (isSearchBarOpens) {
-                    debugPrint(
-                        'do something before animation started. It\'s the ${isSearchBarOpens ? 'opening' : 'closing'} animation');
-                  },
-                  trailingWidget: const Icon(
-                    Icons.search,
-                    size: 20,
-                    color: Colors.grey,
-                  ),
-                  secondaryButtonWidget: const Icon(
-                    Icons.close,
-                    size: 20,
-                    color: Colors.grey,
-                  ),
-                  buttonWidget: const Icon(
-                    Icons.search,
-                    size: 20,
-                    color: Colors.grey,
+                padding: const EdgeInsets.all(10.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Search',
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide(color: Colors.transparent), // 테두리를 투명하게
+                    ),
+                    enabledBorder: OutlineInputBorder( // 기본 상태의 테두리도 투명하게
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide(color: Colors.transparent),
+                    ),
+                    focusedBorder: OutlineInputBorder( // 포커스 상태의 테두리도 투명하게
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide(color: Colors.transparent),
+                    ),
+                    contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    filled: true,
+                    fillColor: Colors.grey[200],
                   ),
                 ),
               ),
+
               ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
@@ -118,6 +130,16 @@ class _SearchbarAnimationExampleState extends State<SearchbarAnimationExample> {
                     ),
                   );
                 },
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text('Name: $_name'),
+                    Text('Phone: $_phone'),
+                  ],
+                ),
               ),
             ],
           ),

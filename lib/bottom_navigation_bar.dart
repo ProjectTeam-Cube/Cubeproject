@@ -61,17 +61,51 @@ class HomePage extends StatelessWidget {
 
 
 
+// class RegistrationPage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Padding(
+//         padding: const EdgeInsets.only(top: 30.0),
+//         child: Scaffold(
+//           appBar: BaseAppBar(), // 앱 바 설정
+//           body: SingleChildScrollView(
+//             // SingleChildScrollView를 사용하여 스크롤 가능하도록 설정
+//             child: MyFormBody(), // 입력란이 포함된 컨테이너
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
 class RegistrationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Padding(
-        padding: const EdgeInsets.only(top: 30.0),
+        padding: const EdgeInsets.only(top: 50.0),
         child: Scaffold(
-          appBar: BaseAppBar(), // 앱 바 설정
-          body: SingleChildScrollView(
-            // SingleChildScrollView를 사용하여 스크롤 가능하도록 설정
-            child: MyFormBody(), // 입력란이 포함된 컨테이너
+          appBar: AppBar(
+            title: Text('전화번호 리스트'),
+          ), // 앱 바 설정
+          body: SearchbarAnimationExample(),
+          floatingActionButton: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              FloatingActionButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyFormBody()),
+                  );
+                },
+                tooltip: 'Increment',
+                child: Icon(Icons.add, color: Colors.white),
+                backgroundColor: Color(0xFF26C100), // FloatingActionButton의 배경색 설정
+                elevation: 1.0, // 그림자 크기 줄이기
+              ),
+            ],
           ),
         ),
       ),
@@ -82,24 +116,8 @@ class RegistrationPage extends StatelessWidget {
 class ReservationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 30.0),
-      child: Scaffold(
-        appBar: BaseAppBar(),
-        body: SearchbarAnimationExample(),
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              tooltip: 'Increment',
-              child: Icon(Icons.add),
-            ),
-          ],
-        ),
-      ),
+    return Scaffold(
+        body: Center(child: Text('예약 등록 페이지')),
     );
   }
 }

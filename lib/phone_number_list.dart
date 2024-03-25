@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'bottom_navigation_bar.dart';
-import 'main.dart';
 
 class PhoneNumberList extends StatefulWidget {
   const PhoneNumberList({super.key});

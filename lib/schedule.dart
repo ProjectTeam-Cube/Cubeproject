@@ -70,7 +70,7 @@ class _TableEventsExampleState extends State<TableEventsExample> {
                   ),
                   DropdownButton<String>(
                     value: _selectedColorName,
-                    items: <String>['Red', 'Green', 'Yellow', 'Blue']
+                    items: <String>['Red', 'Green', 'Yellow', 'Blue' , 'Orange']
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -92,6 +92,8 @@ class _TableEventsExampleState extends State<TableEventsExample> {
                             break;
                           case 'Blue':
                             _selectedColor = Colors.blue;
+                          case 'Orange':
+                            _selectedColor = Colors.orange;
                             break;
                         }
                       });

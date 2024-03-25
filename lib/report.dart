@@ -29,7 +29,7 @@ class _ContactRecordScreenState extends State<ContactRecordScreen> {
       appBar: PreferredSize(
           preferredSize:Size.fromHeight(100.0),
           child: Padding(
-            padding: const EdgeInsets.only(top: 25.0),
+            padding: const EdgeInsets.only(top: 17.0),
             child: BaseAppBar(),
           )),
       body: Padding(
