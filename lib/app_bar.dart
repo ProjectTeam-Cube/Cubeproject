@@ -17,7 +17,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
           padding: const EdgeInsets.only(top: 10.0),
           child: AppBar(
             title: Text(
-              '전화번호 등록',
+              '전화번호 등록록',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
