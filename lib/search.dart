@@ -1,10 +1,8 @@
 import 'dart:convert';
-
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:searchbar_animation/searchbar_animation.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:io';
 
 class SearchbarAnimationExample extends StatefulWidget {
   const SearchbarAnimationExample({Key? key}) : super(key: key);
@@ -14,37 +12,7 @@ class SearchbarAnimationExample extends StatefulWidget {
       _SearchbarAnimationExampleState();
 }
 
-class ContactInfo {
-  String name;
-  String phoneNumber;
-  String imagePath;
-
-  ContactInfo(
-      {required this.name,
-      required this.phoneNumber,
-      this.imagePath = 'assets/images/leedohyun.jpg'});
-
-  Map<String, dynamic> toJson() => {
-        'name': name,
-        'phone': phoneNumber,
-        'imagePath': imagePath,
-      };
-
-  factory ContactInfo.fromJson(Map<String, dynamic> json) {
-    return ContactInfo(
-      name: json['name'],
-      phoneNumber: json['phone'],
-      imagePath: json['imagePath'] ?? 'assets/images/leedohyun.jpg',
-    );
-  }
-}
-
 class _SearchbarAnimationExampleState extends State<SearchbarAnimationExample> {
-  String _name = '';
-  String _phone = '';
-  String _email = '';
-  String? _imagePath;
-
   List<ContactInfo> _userList = [];
 
   @override
@@ -55,21 +23,37 @@ class _SearchbarAnimationExampleState extends State<SearchbarAnimationExample> {
 
   Future<void> _loadSavedData() async {
     final prefs = await SharedPreferences.getInstance();
-    final String? contactInfoListJson = prefs.getString('contactInfoList');
+    final String? contactInfoListJson = prefs.getString('phoneInfoList');
     if (contactInfoListJson != null) {
-      print("Loaded data: $contactInfoListJson"); // 로그 출력
       Iterable decoded = json.decode(contactInfoListJson);
       setState(() {
         _userList = decoded.map((json) => ContactInfo.fromJson(json)).toList();
+        // 로드된 데이터 출력
+        for (var contact in _userList) {
+          print('Success');
+          // 'Name: ${contact.name}, Phone: ${contact.phoneNumber}, ImagePath: ${contact.imagePath}'
+          // 불러오는 값들 확인하는 방법.
+        }
       });
     } else {
-      print("No data found"); // 데이터가 없을 때 로그 출력
+      print("No data found");
     }
+  }
+
+  Future<void> _saveContactInfoList() async {
+    final prefs = await SharedPreferences.getInstance();
+    // _userList를 JSON으로 인코딩하여 저장합니다.
+    String encodedData =
+        json.encode(_userList.map((contact) => contact.toJson()).toList());
+    await prefs.setString('phoneInfoList', encodedData);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('전화번호 리스트'),
+      ),
       body: _buildSearchbarAnimation(),
     );
   }
@@ -113,18 +97,32 @@ class _SearchbarAnimationExampleState extends State<SearchbarAnimationExample> {
               ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: users.length,
+                itemCount: _userList.length, // 여기서 _userList의 길이를 사용합니다.
                 itemBuilder: (context, index) {
-                  // 현재 인덱스에 해당하는 User 객체
-                  User currentUser = users[index];
+                  // 현재 인덱스에 해당하는 ContactInfo 객체
+                  ContactInfo currentContact = _userList[index];
+
+                  ImageProvider imageProvider;
+                  if (currentContact.imagePath.isNotEmpty &&
+                      File(currentContact.imagePath).existsSync()) {
+                    imageProvider = FileImage(File(currentContact.imagePath));
+                  } else {
+                    imageProvider = AssetImage('assets/images/leedohyun.jpg');
+                  }
 
                   return Slidable(
-                    key: ValueKey(currentUser.name),
-                    startActionPane: ActionPane(
+                    key: ValueKey(currentContact.name),
+                    endActionPane: ActionPane(
                       motion: ScrollMotion(),
                       children: [
                         SlidableAction(
-                          onPressed: (context) => doNothing(context),
+                          onPressed: (context) async {
+                            // 여기서 삭제 로직을 구현합니다.
+                            _userList
+                                .removeAt(index); // 해당 항목을 _userList에서 제거합니다.
+                            await _saveContactInfoList(); // 변경된 _userList를 SharedPreferences에 저장합니다.
+                            setState(() {}); // UI를 업데이트하기 위해 setState를 호출합니다.
+                          },
                           backgroundColor: Color(0xFFFE4A49),
                           foregroundColor: Colors.white,
                           icon: Icons.delete,
@@ -132,59 +130,23 @@ class _SearchbarAnimationExampleState extends State<SearchbarAnimationExample> {
                         ),
                         SlidableAction(
                           onPressed: (context) => doNothing(context),
-                          backgroundColor: Color(0xFF21B7CA),
+                          backgroundColor: Color(0xFF26C100),
                           foregroundColor: Colors.white,
-                          icon: Icons.share,
-                          label: 'Share',
-                        ),
-                      ],
-                    ),
-                    endActionPane: ActionPane(
-                      motion: ScrollMotion(),
-                      children: [
-                        SlidableAction(
-                          onPressed: (context) => doNothing(context),
-                          backgroundColor: Color(0xFF7BC043),
-                          foregroundColor: Colors.white,
-                          icon: Icons.archive,
-                          label: 'Archive',
-                        ),
-                        SlidableAction(
-                          onPressed: (context) => doNothing(context),
-                          backgroundColor: Color(0xFF0392CF),
-                          foregroundColor: Colors.white,
-                          icon: Icons.save,
-                          label: 'Save',
+                          icon: Icons.edit,
+                          label: 'Modify',
                         ),
                       ],
                     ),
                     child: ListTile(
                       leading: CircleAvatar(
                         radius: 25,
-                        backgroundImage: AssetImage(currentUser.imagePath),
+                        backgroundImage: imageProvider,
                       ),
-                      title: Text(currentUser.name),
-                      subtitle: Text(currentUser.phoneNumber),
+                      title: Text(currentContact.name),
+                      subtitle: Text(currentContact.phoneNumber),
                     ),
                   );
                 },
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text('Name: $_name'),
-                    Text('Phone: $_phone'),
-                    // 이미지 경로가 있으면 이미지를 표시하고, 없으면 기본 이미지 표시
-                    CircleAvatar(
-                      radius: 25,
-                      backgroundImage: _imagePath != null
-                          ? FileImage(File(_imagePath!)) as ImageProvider
-                          : AssetImage('assets/images/leedohyun.jpg'),
-                    ),
-                  ],
-                ),
               ),
             ],
           ),
@@ -196,22 +158,29 @@ class _SearchbarAnimationExampleState extends State<SearchbarAnimationExample> {
 
 void doNothing(BuildContext context) {}
 
-class User {
+// 불러올 변수 초기화
+
+class ContactInfo {
   String name;
   String phoneNumber;
   String imagePath;
 
-  User(this.name, this.phoneNumber, this.imagePath);
+  ContactInfo(
+      {required this.name,
+      required this.phoneNumber,
+      this.imagePath = 'assets/images/leedohyun.jpg'});
+
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'phone': phoneNumber,
+        'imagePath': imagePath,
+      };
+
+  factory ContactInfo.fromJson(Map<String, dynamic> json) {
+    return ContactInfo(
+      name: json['name'],
+      phoneNumber: json['phone'],
+      imagePath: json['imagePath'] ?? 'assets/images/leedohyun.jpg',
+    );
+  }
 }
-
-// 메인 함수나 위젯 클래스 안에서 사용자 데이터 리스트 생성
-final List<User> users = [
-  User('이도현', '010-1234-5678', 'assets/images/leedohyun.jpg'),
-  User('박은빈', '010-2345-6789', 'assets/images/enbin.jpg'),
-  User('서현진', '010-3456-7890', 'assets/images/hyunjin.jpg'),
-  User('김유정', '010-4567-8901', 'assets/images/ujung.jpg'),
-  User('흰둥이', '010-5678-9012', 'assets/images/hyn.jpg'),
-  User('짱구', '010-5678-9012', 'assets/images/jjang.jpg'),
-
-  // 필요한 만큼 사용자를 추가할 수 있습니다.
-];

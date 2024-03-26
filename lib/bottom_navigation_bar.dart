@@ -8,8 +8,6 @@ import 'app_bar.dart';
 import 'home.dart';
 import 'main.dart';
 
-
-
 // 각 탭에 대응하는 페이지 위젯들
 class HomePage extends StatelessWidget {
   @override
@@ -33,7 +31,10 @@ class HomePage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   IconButton(
-                    icon: Icon(Icons.notifications, size: 35,),
+                    icon: Icon(
+                      Icons.notifications,
+                      size: 35,
+                    ),
                     onPressed: () {
                       print('알림 아이콘 클릭됨');
                     },
@@ -41,7 +42,10 @@ class HomePage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 14.0),
                     child: IconButton(
-                      icon: Icon(Icons.search, size: 35,),
+                      icon: Icon(
+                        Icons.search,
+                        size: 35,
+                      ),
                       onPressed: () {
                         print('검색 아이콘 클릭됨');
                       },
@@ -57,9 +61,6 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
-
-
 
 // class RegistrationPage extends StatelessWidget {
 //   @override
@@ -86,9 +87,6 @@ class RegistrationPage extends StatelessWidget {
       home: Padding(
         padding: const EdgeInsets.only(top: 50.0),
         child: Scaffold(
-          appBar: AppBar(
-            title: Text('전화번호 리스트'),
-          ), // 앱 바 설정
           body: SearchbarAnimationExample(),
           floatingActionButton: Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -102,7 +100,8 @@ class RegistrationPage extends StatelessWidget {
                 },
                 tooltip: 'Increment',
                 child: Icon(Icons.add, color: Colors.white),
-                backgroundColor: Color(0xFF26C100), // FloatingActionButton의 배경색 설정
+                backgroundColor:
+                    Color(0xFF26C100), // FloatingActionButton의 배경색 설정
                 elevation: 1.0, // 그림자 크기 줄이기
               ),
             ],
@@ -117,7 +116,7 @@ class ReservationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(child: Text('예약 등록 페이지')),
+      body: Center(child: Text('예약 등록 페이지')),
     );
   }
 }
@@ -197,6 +196,5 @@ class _BottomNavigationBarAppState extends State<BottomNavigationBarApp> {
 
 void main() {
   runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: BottomNavigationBarApp()));
+      debugShowCheckedModeBanner: false, home: BottomNavigationBarApp()));
 }

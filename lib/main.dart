@@ -75,10 +75,10 @@ class _MyFormBodyState extends State<MyFormBody> {
     });
   }
 
+  //정보 입력 컨트롤러
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _phoneController =
-      TextEditingController(); // 전화번호 입력 컨트롤러 추가
+  final TextEditingController _phoneController = TextEditingController();
 
   bool _showMore = false;
 
@@ -347,27 +347,26 @@ class _MyFormBodyState extends State<MyFormBody> {
                       child: ElevatedButton(
                         child: Text(
                           "저장하기",
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),
+                          style: TextStyle(fontSize: 18),
                         ),
-                        onPressed: () {
-                          // PhoneInfo 객체 생성
+                        onPressed: () async {
+                          // PhoneInfo 객체 생성 시, _image.path를 imagePath로 설정
                           PhoneInfo newInfo = PhoneInfo(
                             name: _nameController.text,
                             phone: _phoneController.text,
                             email: _emailController.text,
+                            imagePath: _image?.path ?? '', // 이미지 경로 추가
                           );
 
                           // 새로운 PhoneInfo 객체를 리스트에 추가하고 저장
-                          _savePhoneInfoList(newInfo);
+                          await _savePhoneInfoList(newInfo);
 
                           // 다음 페이지로 이동
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => SearchbarAnimationExample(),
-                            ),
+                                builder: (context) =>
+                                    SearchbarAnimationExample()),
                           );
                         },
                       ),
@@ -387,13 +386,20 @@ class PhoneInfo {
   String name;
   String phone;
   String email;
+  String imagePath; // 이미지 경로 필드 추가
 
-  PhoneInfo({required this.name, required this.phone, required this.email});
+  PhoneInfo({
+    required this.name,
+    required this.phone,
+    required this.email,
+    this.imagePath = '', // 기본값으로 빈 문자열 설정
+  });
 
   Map<String, dynamic> toJson() => {
         'name': name,
         'phone': phone,
         'email': email,
+        'imagePath': imagePath, // JSON 변환 시 imagePath도 포함
       };
 
   factory PhoneInfo.fromJson(Map<String, dynamic> json) {
@@ -401,6 +407,7 @@ class PhoneInfo {
       name: json['name'],
       phone: json['phone'],
       email: json['email'],
+      imagePath: json['imagePath'] ?? '', // imagePath가 없는 경우 기본값으로 빈 문자열 설정
     );
   }
 }
@@ -429,9 +436,10 @@ Future<void> _savePhoneInfoList(PhoneInfo info) async {
       List<PhoneInfo> loadedList =
           decodedList.map((json) => PhoneInfo.fromJson(json)).toList();
       print("Loaded list:");
+
       loadedList.forEach((phoneInfo) {
         print(
-            "Name: ${phoneInfo.name}, Phone: ${phoneInfo.phone}, Email: ${phoneInfo.email}");
+            "Name: ${phoneInfo.name}, Phone: ${phoneInfo.phone}, Email: ${phoneInfo.email}, image: ${phoneInfo.imagePath}");
       });
     }
   } catch (e) {
