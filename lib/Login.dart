@@ -114,6 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                 textInputAction: TextInputAction.next,
                 prefixIcon: const Icon(Icons.password),
                 controller: passwordController,
+                obscureText: true,//비밀번호 숨기기
                 validator: FormValidation.emailTextField,
                 theme: FilledOrOutlinedTextTheme(
                   radius: 15,

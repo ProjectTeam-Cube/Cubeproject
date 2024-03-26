@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1032125141457",
+    "project_id": "yeoboseyo-cd897",
+    "storage_bucket": "yeoboseyo-cd897.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1032125141457:android:f375fd70d8aeef19d5d0f0",
+        "android_client_info": {
+          "package_name": "com.example.cube"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClqwVfzSFj6T1oorzSOHRNtqXNMsDhkvE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -6,6 +6,8 @@ import 'package:material_text_fields/theme/material_text_field_theme.dart';
 import 'package:material_text_fields/utils/form_validation.dart';
 import 'package:provider/provider.dart';
 
+import 'Login.dart';
+
 class SingUp extends StatefulWidget {
   const SingUp({super.key});
 
@@ -117,11 +119,12 @@ class _SingUpState extends State<SingUp> {
                             padding: const EdgeInsets.only(top: 20.0, right: 25, left: 25),
                             child: MaterialTextField(
                               keyboardType: TextInputType.text,
-                              hint: '비밀번호',
+                              hint: '문자열 숫자포함 6글자 이상',
                               labelText: 'Password',
                               textInputAction: TextInputAction.next,
                               prefixIcon: const Icon(Icons.password),
                               controller: passwordController,
+                              obscureText: true,//비밀번호 숨기기
                               validator: FormValidation.emailTextField,
                               theme: FilledOrOutlinedTextTheme(
                                 radius: 15,
@@ -152,8 +155,9 @@ class _SingUpState extends State<SingUp> {
                             padding: const EdgeInsets.only(top: 20.0, right: 25, left: 25),
                             child: MaterialTextField(
                               keyboardType: TextInputType.text,
-                              hint: '비밀번호 확인',
+                              hint: '문자열 숫자포함 6글자 이상',
                               labelText: 'Password check',
+                              obscureText: true,//비밀번호 숨기기
                               textInputAction: TextInputAction.next,
                               prefixIcon: const Icon(Icons.password),
                               controller: passwordController,
@@ -183,7 +187,7 @@ class _SingUpState extends State<SingUp> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 3), // 간격을 조절합니다
+                          SizedBox(height: 300), // 간격을 조절합니다
                           Align(
                             alignment: Alignment.bottomCenter,
                             child: Padding(
@@ -198,6 +202,10 @@ class _SingUpState extends State<SingUp> {
                                       ScaffoldMessenger.of(context).showSnackBar(
                                           SnackBar(content: Text('회원가입 성공'),
                                           )
+                                      );
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(builder: (_) => LoginPage()),
                                       );
                                     },
                                       //회원가입 실패시
