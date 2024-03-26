@@ -1,3 +1,5 @@
+// 모달 창 출력 페이지
+
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -84,7 +86,7 @@ class HomeScreen extends StatelessWidget {
                             },
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.grey.shade700), // 회색 배경
+                                  Colors.grey), // 회색 배경
                               shape: MaterialStateProperty.all<OutlinedBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius:
