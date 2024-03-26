@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'main.dart';
+
 class SearchbarAnimationExample extends StatefulWidget {
   const SearchbarAnimationExample({Key? key}) : super(key: key);
 
@@ -50,11 +52,32 @@ class _SearchbarAnimationExampleState extends State<SearchbarAnimationExample> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('전화번호 리스트'),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('전화번호 리스트'),
+        ),
+        body: _buildSearchbarAnimation(),
+        floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyFormBody()),
+                );
+              },
+              tooltip: 'Increment',
+              child: Icon(Icons.add, color: Colors.white),
+              backgroundColor:
+                  Color(0xFF26C100), // FloatingActionButton의 배경색 설정
+              elevation: 1.0, // 그림자 크기 줄이기
+            ),
+          ],
+        ),
       ),
-      body: _buildSearchbarAnimation(),
     );
   }
 

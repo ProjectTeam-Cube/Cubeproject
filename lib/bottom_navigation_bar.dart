@@ -9,81 +9,63 @@ import 'home.dart';
 import 'main.dart';
 
 // 각 탭에 대응하는 페이지 위젯들
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70.0), // AppBar의 높이를 조정
-        child: AppBar(
-          title: Padding(
-            padding: EdgeInsets.only(top: 30.0), // 로고의 상단 패딩 조정
-            child: Image.asset(
-              'assets/images/logo.png',
-              height: 100,
-              width: 150,
-            ),
-          ),
-          actions: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 15.0), // 아이콘의 상단 패딩 조정
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(
-                      Icons.notifications,
-                      size: 35,
-                    ),
-                    onPressed: () {
-                      print('알림 아이콘 클릭됨');
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 14.0),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.search,
-                        size: 35,
-                      ),
-                      onPressed: () {
-                        print('검색 아이콘 클릭됨');
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-      body: HomeBanner(),
-    );
-  }
-}
-
-// class RegistrationPage extends StatelessWidget {
+// class HomePage extends StatelessWidget {
 //   @override
 //   Widget build(BuildContext context) {
 //     return MaterialApp(
-//       home: Padding(
-//         padding: const EdgeInsets.only(top: 30.0),
-//         child: Scaffold(
-//           appBar: BaseAppBar(), // 앱 바 설정
-//           body: SingleChildScrollView(
-//             // SingleChildScrollView를 사용하여 스크롤 가능하도록 설정
-//             child: MyFormBody(), // 입력란이 포함된 컨테이너
-//           ),
-//         ),
-//       ),
+//       debugShowCheckedModeBanner: false,
+//       home: HomeBanner(),
 //     );
 //   }
 // }
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Padding(
+        padding: const EdgeInsets.only(top: 30.0),
+        child: Scaffold(
+          appBar: AppBar(
+            title: Image.asset(
+              'assets/images/logo.png',
+              height: 100,
+              width: 136,
+            ),
+            actions: <Widget>[
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text(
+                    '로그인',
+                    style: TextStyle(fontSize: 12),
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.notifications,
+                      size: 20,
+                    ),
+                    onPressed: () {
+                      print('검색 아이콘 클릭됨');
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ), // 앱 바 설정
+          body: HomeBanner(),
+        ),
+      ),
+    );
+  }
+}
 
 class RegistrationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Padding(
         padding: const EdgeInsets.only(top: 50.0),
         child: Scaffold(
@@ -115,8 +97,11 @@ class RegistrationPage extends StatelessWidget {
 class ReservationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(child: Text('예약 등록 페이지')),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: Center(child: Text('예약 등록 페이지')),
+      ),
     );
   }
 }

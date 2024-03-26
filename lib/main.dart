@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: MyFormBody(), // 입력란이 포함된 컨테이너
         bottomNavigationBar: BottomNavigationBarApp(),
@@ -98,10 +99,10 @@ class _MyFormBodyState extends State<MyFormBody> {
                   getImage(); // 갤러리에서 이미지를 선택하기 위해 getImage 메서드 호출
                 },
                 child: CircleAvatar(
-                  radius: 80,
+                  radius: 62,
                   backgroundImage: _image != null
                       ? FileImage(_image!) as ImageProvider<Object>
-                      : AssetImage('assets/images/leedohyun.jpg')
+                      : AssetImage('assets/images/basic.png')
                           as ImageProvider<Object>,
                   // 선택된 이미지가 없으면 기본 이미지 표시
                 ),
@@ -315,20 +316,27 @@ class _MyFormBodyState extends State<MyFormBody> {
                 ),
               ], //숨겨진 폼
               Padding(
-                padding: const EdgeInsets.only(top: 80.0),
+                padding: const EdgeInsets.only(top: 120.0),
                 child: Row(
                   mainAxisAlignment:
                       MainAxisAlignment.spaceEvenly, // 버튼 사이에 공간을 균등하게 배분
                   children: <Widget>[
                     SizedBox(
-                      width: MediaQuery.of(context).size.width *
-                          0.43, // 화면 너비의 50%에서 조금 빼서 버튼 사이에 공간을 만듦
-                      height: 45,
+                      width: 165,
+                      height: 55,
                       child: ElevatedButton(
                         style: ButtonStyle(
-                            // backgroundColor: MaterialStateProperty.all(Colors.white), // 버튼 배경색을 하얀색으로 설정
-                            // foregroundColor: MaterialStateProperty.all(Colors.black), // 버튼 텍스트 색상을 검은색으로 설정
+                          // backgroundColor: MaterialStateProperty.all(Colors.white), // 버튼 배경색을 하얀색으로 설정
+                          // foregroundColor: MaterialStateProperty.all(Colors.black), // 버튼 텍스트 색상을 검은색으로 설정
+                          foregroundColor: MaterialStateProperty.all(
+                              Colors.black), // 버튼 텍스트 색상을 검은색으로 설정
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(10), // 살짝 각진 모서리를 위해 설정
                             ),
+                          ),
+                        ),
                         child: Text(
                           "취소하기",
                           style: TextStyle(
@@ -341,13 +349,22 @@ class _MyFormBodyState extends State<MyFormBody> {
                       ),
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width *
-                          0.43, // 화면 너비의 50%에서 조금 빼서 버튼 사이에 공간을 만듦
-                      height: 45,
+                      width: 165, // 화면 너비의 50%에서 조금 빼서 버튼 사이에 공간을 만듦
+                      height: 55,
                       child: ElevatedButton(
                         child: Text(
                           "저장하기",
-                          style: TextStyle(fontSize: 18),
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFFFF6F0F), // 버튼 배경색을 설정
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(10), // 살짝 각진 모서리를 위해 설정
+                          ),
                         ),
                         onPressed: () async {
                           // PhoneInfo 객체 생성 시, _image.path를 imagePath로 설정
