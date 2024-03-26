@@ -1,9 +1,7 @@
-// main.dart 실행 시 호출
-
+import 'package:cube/reservation_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
-import 'reservation_list_screen.dart';
 import 'repeat_notification_screen.dart';
 import 'reservation_info.dart';
 
@@ -80,6 +78,26 @@ class _ReservationScreenState extends State<ReservationScreen> {
                     ],
                   ),
                 ),
+              ),
+              SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      // 연락처 불러오기 기능 구현
+                      // 여기에 연락처 불러오기 기능을 구현합니다.
+                    },
+                    child: Text(
+                      '연락처 불러오기',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Colors.black, // 원하는 색상으로 설정하세요.
+                      ),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: 16),
               Row(
