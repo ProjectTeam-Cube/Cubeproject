@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../appbarAndnavigatorbar/app_bar.dart';
 
-class ContactRecordScreen extends StatefulWidget {
+class Report extends StatefulWidget {
   @override
-  State<ContactRecordScreen> createState() => _ContactRecordScreenState();
+  State<Report> createState() => _ReportState();
 }
 
-class _ContactRecordScreenState extends State<ContactRecordScreen> {
+class _ReportState extends State<Report> {
   final List<ContactRecord> contacts = [
     ContactRecord(name: '이은재', call: '통화성공', time: '1분', phonenum: '2024.03.3'),
     ContactRecord(

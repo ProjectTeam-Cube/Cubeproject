@@ -3,18 +3,16 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../phone_number_add/phone_number_register.dart';
 
-import '../main.dart';
-
-class SearchbarAnimationExample extends StatefulWidget {
-  const SearchbarAnimationExample({Key? key}) : super(key: key);
+class PhoneBook extends StatefulWidget {
+  const PhoneBook({Key? key}) : super(key: key);
 
   @override
-  _SearchbarAnimationExampleState createState() =>
-      _SearchbarAnimationExampleState();
+  _PhoneBookState createState() => _PhoneBookState();
 }
 
-class _SearchbarAnimationExampleState extends State<SearchbarAnimationExample> {
+class _PhoneBookState extends State<PhoneBook> {
   List<ContactInfo> _userList = [];
 
   @override
@@ -66,7 +64,8 @@ class _SearchbarAnimationExampleState extends State<SearchbarAnimationExample> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => MyFormBody()),
+                  MaterialPageRoute(
+                      builder: (context) => PhoneNumberRegister()),
                 );
               },
               tooltip: 'Increment',

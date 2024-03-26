@@ -1,7 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
+import '../appbarAndnavigatorbar/bottom_navigation_bar.dart';
+import '../appbarAndnavigatorbar/bottom_navigation_bar_provider.dart';
 import '../call/memory.dart';
+import '../phone_number_add/phone_number_register.dart';
+import '../phone_number_list/phone_book.dart';
+import '../reservation/reservation_list_screen.dart';
+import '../schedule/schedule.dart';
 
 class HomeBanner extends StatefulWidget {
   @override
@@ -65,66 +71,110 @@ class _HomeBannerState extends State<HomeBanner> {
                 children: [
                   Expanded(
                     // 첫 번째 컨테이너를 Expanded 위젯으로 감싼다.
-                    child: Container(
-                      height: 120.0,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(10.0),
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PhoneNumberRegister(),
+                          ),
+                        );
+                      },
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.grey[200], // 버튼 배경 색
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(10.0), // 버튼 둥근 모서리
+                        ),
                       ),
-                      padding: EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 17.0),
-                      child: Stack(
-                        children: [
-                          Align(
-                            alignment: Alignment.topLeft, // 왼쪽 위 정렬
-                            child: Text(
-                              '번호 등록',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
+                      child: Container(
+                        height: 105.0,
+                        padding: EdgeInsets.symmetric(
+                            vertical: 3.0, horizontal: 5.0),
+                        child: Stack(
+                          children: [
+                            Align(
+                              alignment: Alignment.topLeft, // 왼쪽 위 정렬
+                              child: Text(
+                                '번호 등록',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors
+                                      .black, // TextButton의 기본 텍스트 색상을 덮어쓰기 위해 설정
+                                ),
+                              ),
                             ),
-                          ),
-                          Align(
-                            alignment: Alignment.bottomRight, // 오른쪽 아래 정렬
-                            child: Icon(
-                              Icons.person_add,
-                              color: Colors.green,
-                              size: 60,
+                            Align(
+                              alignment: Alignment.bottomRight, // 오른쪽 아래 정렬
+                              child: Image.asset(
+                                'assets/images/register.png', // 이미지 경로를 자신의 이미지 경로로 변경하세요.
+                                width: 55, // 이미지의 너비
+                                height: 55, // 이미지의 높이
+                                fit: BoxFit.cover, // 이미지가 지정된 너비와 높이에 맞도록 조정
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
                   SizedBox(width: 20), // 두 컨테이너 사이의 공간
                   Expanded(
                     // 첫 번째 컨테이너를 Expanded 위젯으로 감싼다.
-                    child: Container(
-                      height: 120.0,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(10.0),
+                    child: TextButton(
+                      onPressed: () {
+                        // Provider를 사용하여 현재 선택된 인덱스를 업데이트
+                        final provider =
+                            Provider.of<BottomNavigationBarProvider>(context,
+                                listen: false);
+                        provider.currentIndex =
+                            1; // 예를 들어, RegistrationPage가 두 번째 탭에 있다고 가정
+
+                        // 페이지 이동
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RegistrationPage(),
+                          ),
+                        );
+                      },
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.grey[200], // 버튼 배경 색
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(10.0), // 버튼 둥근 모서리
+                        ),
                       ),
-                      padding: EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 17.0),
-                      child: Stack(
-                        children: [
-                          Align(
-                            alignment: Alignment.topLeft, // 왼쪽 위 정렬
-                            child: Text(
-                              '전화번호 리스트',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
+                      child: Container(
+                        height: 105.0,
+                        padding: EdgeInsets.symmetric(
+                            vertical: 3.0, horizontal: 5.0),
+                        child: Stack(
+                          children: [
+                            Align(
+                              alignment: Alignment.topLeft, // 왼쪽 위 정렬
+                              child: Text(
+                                '전화번호 리스트',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors
+                                      .black, // TextButton의 기본 텍스트 색상을 덮어쓰기 위해 설정
+                                ),
+                              ),
                             ),
-                          ),
-                          Align(
-                            alignment: Alignment.bottomRight, // 오른쪽 아래 정렬
-                            child: Icon(
-                              Icons.auto_stories,
-                              color: Colors.green,
-                              size: 55,
+                            Align(
+                              alignment: Alignment.bottomRight, // 오른쪽 아래 정렬
+                              child: Image.asset(
+                                'assets/images/phoneBook.png', // 이미지 경로를 자신의 이미지 경로로 변경하세요.
+                                width: 55, // 이미지의 너비
+                                height: 55, // 이미지의 높이
+                                fit: BoxFit.cover, // 이미지가 지정된 너비와 높이에 맞도록 조정
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -141,68 +191,114 @@ class _HomeBannerState extends State<HomeBanner> {
                     children: [
                       Expanded(
                         // 첫 번째 컨테이너를 Expanded 위젯으로 감싼다.
-                        child: Container(
-                          height: 120.0,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(10.0),
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ReservationListScreen(reservations: []),
+                              ),
+                            );
+                          },
+                          style: TextButton.styleFrom(
+                            backgroundColor: Colors.grey[200], // 버튼 배경 색
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(10.0), // 버튼 둥근 모서리
+                            ),
                           ),
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 17.0),
-                          child: Stack(
-                            children: [
-                              Align(
-                                alignment: Alignment.topLeft, // 왼쪽 위 정렬
-                                child: Text(
-                                  '예약 등록',
-                                  style: TextStyle(
+                          child: Container(
+                            height: 105.0,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 3.0, horizontal: 5.0),
+                            child: Stack(
+                              children: [
+                                Align(
+                                  alignment: Alignment.topLeft, // 왼쪽 위 정렬
+                                  child: Text(
+                                    '예약 리스트',
+                                    style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 18),
+                                      fontSize: 18,
+                                      color: Colors
+                                          .black, // TextButton의 기본 텍스트 색상을 덮어쓰기 위해 설정
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              Align(
-                                alignment: Alignment.bottomRight, // 오른쪽 아래 정렬
-                                child: Icon(
-                                  Icons.comment,
-                                  color: Colors.green,
-                                  size: 55,
+                                Align(
+                                  alignment: Alignment.bottomRight, // 오른쪽 아래 정렬
+                                  child: Image.asset(
+                                    'assets/images/reservation.png', // 이미지 경로를 자신의 이미지 경로로 변경하세요.
+                                    width: 55, // 이미지의 너비
+                                    height: 55, // 이미지의 높이
+                                    fit:
+                                        BoxFit.cover, // 이미지가 지정된 너비와 높이에 맞도록 조정
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
                       SizedBox(width: 20), // 두 컨테이너 사이의 공간
                       Expanded(
                         // 첫 번째 컨테이너를 Expanded 위젯으로 감싼다.
-                        child: Container(
-                          height: 120.0,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(10.0),
+                        child: TextButton(
+                          onPressed: () {
+                            // Provider를 사용하여 현재 선택된 인덱스를 업데이트
+                            final provider =
+                                Provider.of<BottomNavigationBarProvider>(
+                                    context,
+                                    listen: false);
+                            provider.currentIndex =
+                                4; // 예를 들어, RegistrationPage가 두 번째 탭에 있다고 가정
+
+                            // 페이지 이동
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Schedule(),
+                              ),
+                            );
+                          },
+                          style: TextButton.styleFrom(
+                            backgroundColor: Colors.grey[200], // 버튼 배경 색
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(10.0), // 버튼 둥근 모서리
+                            ),
                           ),
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 17.0),
-                          child: Stack(
-                            children: [
-                              Align(
-                                alignment: Alignment.topLeft, // 왼쪽 위 정렬
-                                child: Text(
-                                  '전화 스케쥴',
-                                  style: TextStyle(
+                          child: Container(
+                            height: 105.0,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 3.0, horizontal: 5.0),
+                            child: Stack(
+                              children: [
+                                Align(
+                                  alignment: Alignment.topLeft, // 왼쪽 위 정렬
+                                  child: Text(
+                                    '스케쥴',
+                                    style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 18),
+                                      fontSize: 18,
+                                      color: Colors
+                                          .black, // TextButton의 기본 텍스트 색상을 덮어쓰기 위해 설정
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              Align(
-                                alignment: Alignment.bottomRight, // 오른쪽 아래 정렬
-                                child: Icon(
-                                  Icons.dialpad,
-                                  color: Colors.green,
-                                  size: 55,
+                                Align(
+                                  alignment: Alignment.bottomRight, // 오른쪽 아래 정렬
+                                  child: Image.asset(
+                                    'assets/images/schedule.png', // 이미지 경로를 자신의 이미지 경로로 변경하세요.
+                                    width: 55, // 이미지의 너비
+                                    height: 55, // 이미지의 높이
+                                    fit:
+                                        BoxFit.cover, // 이미지가 지정된 너비와 높이에 맞도록 조정
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),

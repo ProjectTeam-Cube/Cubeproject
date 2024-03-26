@@ -11,8 +11,6 @@ class Event {
 
   @override
   String toString() => title;
-
-
 }
 
 // 간단한 이벤트 데이터
@@ -38,17 +36,12 @@ List<DateTime> daysInRange(DateTime start, DateTime end) {
   return days;
 }
 
-class TableEventsExample extends StatefulWidget {
-
-
+class Schedule extends StatefulWidget {
   @override
-  _TableEventsExampleState createState() => _TableEventsExampleState();
+  _ScheduleState createState() => _ScheduleState();
 }
 
-class _TableEventsExampleState extends State<TableEventsExample> {
-
-
-
+class _ScheduleState extends State<Schedule> {
   void _showAddEventDialog() {
     final TextEditingController _titleController = TextEditingController();
     Color _selectedColor = Colors.blue; // 기본 색상 설정
@@ -57,7 +50,8 @@ class _TableEventsExampleState extends State<TableEventsExample> {
     showDialog(
       context: context,
       builder: (context) {
-        return StatefulBuilder( // StatefulBuilder 추가
+        return StatefulBuilder(
+          // StatefulBuilder 추가
           builder: (BuildContext context, StateSetter setState) {
             return AlertDialog(
               title: Text('일정'),
@@ -70,7 +64,7 @@ class _TableEventsExampleState extends State<TableEventsExample> {
                   ),
                   DropdownButton<String>(
                     value: _selectedColorName,
-                    items: <String>['Red', 'Green', 'Yellow', 'Blue' , 'Orange']
+                    items: <String>['Red', 'Green', 'Yellow', 'Blue', 'Orange']
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -110,8 +104,12 @@ class _TableEventsExampleState extends State<TableEventsExample> {
                 ),
                 TextButton(
                   onPressed: () {
-                    if (_titleController.text.isNotEmpty && _selectedDay != null) { // _selectedDay가 null이 아닌지 확인
-                      final Event newEvent = Event(_titleController.text, _selectedColor, isFavorite: false); // 생성자에 isFavorite 추가
+                    if (_titleController.text.isNotEmpty &&
+                        _selectedDay != null) {
+                      // _selectedDay가 null이 아닌지 확인
+                      final Event newEvent = Event(
+                          _titleController.text, _selectedColor,
+                          isFavorite: false); // 생성자에 isFavorite 추가
                       final selectedDayEvents = kEvents[_selectedDay] ?? [];
                       selectedDayEvents.add(newEvent);
                       kEvents[_selectedDay!] = selectedDayEvents;
@@ -120,7 +118,6 @@ class _TableEventsExampleState extends State<TableEventsExample> {
                       Navigator.of(context).pop();
                     }
                   },
-
                   child: Text('Add'),
                 ),
               ],
@@ -130,10 +127,6 @@ class _TableEventsExampleState extends State<TableEventsExample> {
       },
     );
   }
-
-
-
-
 
   late final ValueNotifier<List<Event>> _selectedEvents;
   CalendarFormat _calendarFormat = CalendarFormat.month;
@@ -170,9 +163,7 @@ class _TableEventsExampleState extends State<TableEventsExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-
-      ),
+      appBar: AppBar(),
       body: Column(
         children: [
           TableCalendar<Event>(
@@ -185,7 +176,7 @@ class _TableEventsExampleState extends State<TableEventsExample> {
             calendarFormat: _calendarFormat,
             onFormatChanged: (format) {
               setState(() {
-                _calendarFormat = format;  // 사용자가 선택한 새 포맷으로 상태 업데이트
+                _calendarFormat = format; // 사용자가 선택한 새 포맷으로 상태 업데이트
               });
             },
             rangeSelectionMode: _rangeSelectionMode,
@@ -222,23 +213,25 @@ class _TableEventsExampleState extends State<TableEventsExample> {
                       bottom: 1,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
-                        children: events.map((event) => Container(
-                          width: 40.0,
-                          height: 4.0,
-                          margin: const EdgeInsets.symmetric(vertical: 1.0),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            color: event.color,
-                          ),
-                        )).toList(),
+                        children: events
+                            .map((event) => Container(
+                                  width: 40.0,
+                                  height: 4.0,
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 1.0),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    color: event.color,
+                                  ),
+                                ))
+                            .toList(),
                       ),
                     );
                   }
                 }
-                return null;  // 이벤트가 없는 경우에는 아무것도 표시하지 않음
+                return null; // 이벤트가 없는 경우에는 아무것도 표시하지 않음
               },
             ),
-
           ),
           Expanded(
             child: ValueListenableBuilder<List<Event>>(
@@ -250,7 +243,8 @@ class _TableEventsExampleState extends State<TableEventsExample> {
                     return Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 12.0, vertical: 4.0),
                         decoration: BoxDecoration(
                           border: Border.all(),
                           borderRadius: BorderRadius.circular(12.0),
@@ -274,13 +268,18 @@ class _TableEventsExampleState extends State<TableEventsExample> {
                                 onTap: () => print('${value[index]}'),
                                 trailing: IconButton(
                                   icon: Icon(
-                                    value[index].isFavorite ? Icons.star : Icons.star_border,
-                                    color: value[index].isFavorite ? Colors.yellow : null,
+                                    value[index].isFavorite
+                                        ? Icons.star
+                                        : Icons.star_border,
+                                    color: value[index].isFavorite
+                                        ? Colors.yellow
+                                        : null,
                                   ),
                                   onPressed: () {
                                     setState(() {
                                       // 즐겨찾기 상태 토글
-                                      value[index].isFavorite = !value[index].isFavorite;
+                                      value[index].isFavorite =
+                                          !value[index].isFavorite;
                                     });
                                   },
                                 ),
@@ -295,8 +294,6 @@ class _TableEventsExampleState extends State<TableEventsExample> {
               },
             ),
           ),
-
-
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -308,5 +305,5 @@ class _TableEventsExampleState extends State<TableEventsExample> {
 }
 
 void main() {
-  runApp(MaterialApp(home: TableEventsExample()));
+  runApp(MaterialApp(home: Schedule()));
 }

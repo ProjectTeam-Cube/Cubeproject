@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
+import '../phone_number_list/phone_book.dart';
 import 'repeat_notification_screen.dart';
 import 'reservation_info.dart';
 import 'reservation_list_screen.dart';
@@ -87,6 +88,8 @@ class _ReservationScreenState extends State<ReservationScreen> {
                     onPressed: () {
                       // 연락처 불러오기 기능 구현
                       // 여기에 연락처 불러오기 기능을 구현합니다.
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => PhoneBook()));
                     },
                     child: Text(
                       '연락처 불러오기',
