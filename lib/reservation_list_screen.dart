@@ -73,6 +73,20 @@ class _ReservationListScreenState extends State<ReservationListScreen> {
                                 : "없음",
                           ),
                           SizedBox(height: 16),
+                          Text(
+                            "메모:",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            reservation.memo.isNotEmpty
+                                ? reservation.memo
+                                : "메모 없음",
+                          ),
+                          SizedBox(height: 16),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [

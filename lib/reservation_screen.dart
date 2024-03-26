@@ -1,9 +1,9 @@
-import 'package:cube/reservation_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'repeat_notification_screen.dart';
 import 'reservation_info.dart';
+import 'reservation_list_screen.dart';
 
 class ReservationScreen extends StatefulWidget {
   const ReservationScreen({Key? key}) : super(key: key);
@@ -240,6 +240,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
               selectedTime.minute,
             ),
             weekdays: [],
+            memo: memoController.text,
           ),
         );
       });
@@ -265,6 +266,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                 .where((entry) => entry.value)
                 .map((entry) => _getWeekdayName(entry.key))
                 .toList(),
+            memo: memoController.text,
           ),
         );
       });
