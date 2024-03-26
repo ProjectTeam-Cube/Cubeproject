@@ -1,7 +1,9 @@
+import 'package:cube/auth_service.dart';
 import 'package:cube/schedule.dart';
 import 'package:cube/search.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
+import 'package:provider/provider.dart';
 
 import 'app_bar.dart';
 import 'MyFormBody.dart';
@@ -50,7 +52,7 @@ class HomePage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => SingUp()),
+                    builder: (context) => SignUp()),
               );
             },
             child: Text('회원가입'),
@@ -65,6 +67,16 @@ class HomePage extends StatelessWidget {
               );
             },
             child: Text('회원가입 완료'),
+          ),
+          SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              //로그아웃 버튼 눌렀을 때 로그인 페이지로 이동
+              context.read<AuthService>().signOut();
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => LoginPage()));
+            },
+            child: Text('로그아웃'),
           ),
         ],
       ),

@@ -11,6 +11,7 @@ class AuthService extends ChangeNotifier {
 void signUp({
   required String email,
   required String password,
+  //required String passwordCheck,
   required Function() onSuccess,
   required Function(String err) onError,
 }) async {

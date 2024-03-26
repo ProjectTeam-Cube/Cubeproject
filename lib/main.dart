@@ -1,3 +1,4 @@
+import 'package:cube/Login.dart';
 import 'package:cube/auth_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -31,14 +32,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // MyApp에서 유저 조회
+    final user = context.read<AuthService>().currentUser();
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: BaseAppBar(), // 앱 바 설정
-        body: SingleChildScrollView(
+        // user가 있는 경우 home으로 감, 아닌경우 로그인 페이지
+        body: user == null? LoginPage() : SingleChildScrollView(
           // SingleChildScrollView를 사용하여 스크롤 가능하도록 설정
           child: MyFormBody(), // 입력란이 포함된 컨테이너
         ),
-        bottomNavigationBar: BottomNavigationBarApp(),
+          bottomNavigationBar: BottomNavigationBarApp(),
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'package:material_text_fields/material_text_fields.dart';
 import 'package:material_text_fields/theme/material_text_field_theme.dart';
 import 'package:material_text_fields/utils/form_validation.dart';
 
+import 'Agreement.dart';
 import 'SignUp.dart';
 import 'CheckBox.dart';
 import 'main.dart';
@@ -182,10 +183,10 @@ class _LoginPageState extends State<LoginPage> {
                       // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       //   content: Text("로그인 성공"),
                       // ));
-                      //로그인 성공시 ButtonList로 이동
+                      //로그인 성공시 메인으로 이동
                       Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (_) => ButtonList()),
+                      MaterialPageRoute(builder: (_) => HomePage()),
                       );
                     },
                     onError: (err){
@@ -228,7 +229,7 @@ class _LoginPageState extends State<LoginPage> {
                      onPressed: () {
                        Navigator.push(
                          context,
-                         MaterialPageRoute(builder: (context) => SingUp()),
+                         MaterialPageRoute(builder: (context) => Agreement()),
                        );
                      },
                      child: Text(

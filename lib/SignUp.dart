@@ -8,16 +8,33 @@ import 'package:provider/provider.dart';
 
 import 'Login.dart';
 
-class SingUp extends StatefulWidget {
-  const SingUp({super.key});
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
 
   @override
-  State<SingUp> createState() => _SingUpState();
+  State<SignUp> createState() => _SignUpState();
 }
 
-class _SingUpState extends State<SingUp> {
+class _SignUpState extends State<SignUp> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController passwordCheckController = TextEditingController();
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   passwordCheckController.addListener(validatePassword); // passwordCheckController에 대한 변화를 감지하도록 설정
+  // }
+  //
+  // void validatePassword() {
+  //   if (passwordCheckController.text != passwordController.text) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text('비밀번호가 일치하지 않습니다.'),
+  //       ),
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +141,7 @@ class _SingUpState extends State<SingUp> {
                               textInputAction: TextInputAction.next,
                               prefixIcon: const Icon(Icons.password),
                               controller: passwordController,
-                              obscureText: true,//비밀번호 숨기기
+                              //obscureText: true,//비밀번호 숨기기
                               validator: FormValidation.emailTextField,
                               theme: FilledOrOutlinedTextTheme(
                                 radius: 15,
@@ -157,11 +174,22 @@ class _SingUpState extends State<SingUp> {
                               keyboardType: TextInputType.text,
                               hint: '문자열 숫자포함 6글자 이상',
                               labelText: 'Password check',
-                              obscureText: true,//비밀번호 숨기기
+                              //obscureText: true,//비밀번호 숨기기
                               textInputAction: TextInputAction.next,
                               prefixIcon: const Icon(Icons.password),
-                              controller: passwordController,
-                              validator: FormValidation.emailTextField,
+                              controller: passwordCheckController,
+                              //validator: FormValidation.emailTextField,
+                              validator: (value) {
+                                if (value != passwordController.text) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text('비밀번호가 일치하지 않습니다.'),
+                                    ),
+                                  );
+                                  return '비밀번호가 일치하지 않습니다.';
+                                }
+                                return null;
+                              },
                               theme: FilledOrOutlinedTextTheme(
                                 radius: 15,
                                 contentPadding:
@@ -194,29 +222,36 @@ class _SingUpState extends State<SingUp> {
                               padding: const EdgeInsets.only(right: 14, left: 14),
                               child: ElevatedButton(
                                 onPressed: () {
-                                  authService.signUp(
-                                    email: emailController.text,
-                                    password: passwordController.text,
-                                    onSuccess: (){
-                                      //회원가입 성공 print("회원가입 성공");
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(content: Text('회원가입 성공'),
-                                          )
-                                      );
-                                      Navigator.pushReplacement(
+                                  if (passwordCheckController.text != passwordController.text) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text('비밀번호가 일치하지 않습니다.'),
+                                      ),
+                                    );
+                                  } else {
+                                    authService.signUp(
+                                      email: emailController.text,
+                                      password: passwordController.text,
+                                      onSuccess: () {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text('회원가입 성공'),
+                                          ),
+                                        );
+                                        Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(builder: (_) => LoginPage()),
-                                      );
-                                    },
-                                      //회원가입 실패시
-                                    onError: (err) {
-                                      //에러 발생 print('회원가입 실패 : $err');
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text(err),
-                                        ),
-                                      );
-                                  },
-                                  );
+                                        );
+                                      },
+                                      onError: (err) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text(err),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
                                 },
                                 style: ElevatedButton.styleFrom(
                                   foregroundColor: Colors.white, // 버튼 내 텍스트의 색상

@@ -85,7 +85,7 @@ class _ButtonListState extends State<ButtonList> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => SingUp()),
+                          builder: (context) => SignUp()),
                     );
                   },
                   child: Text('회원가입'),

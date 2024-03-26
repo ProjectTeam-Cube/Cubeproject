@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'CheckBox.dart';
+import 'SignUp.dart';
 
 class Agreement extends StatefulWidget {
   const Agreement({super.key});
@@ -172,6 +173,10 @@ class _AgreementState extends State<Agreement> {
                               child: ElevatedButton(
                                 onPressed: () {
                                   // 버튼을 눌렀을 때 수행할 동작을 여기에 추가하세요.
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => SignUp()),
+                                  );
                                 },
                                 style: ElevatedButton.styleFrom(
                                   foregroundColor: Colors.white, // 버튼 내 텍스트의 색상

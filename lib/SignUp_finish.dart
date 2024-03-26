@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'bottom_navigation_bar.dart';
+
 class SingUp_finish extends StatelessWidget {
   const SingUp_finish({super.key});
 
@@ -77,6 +79,10 @@ class SingUp_finish extends StatelessWidget {
                           child: ElevatedButton(
                             onPressed: () {
                               // 버튼을 눌렀을 때 수행할 동작을 여기에 추가하세요.
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(builder: (_) => HomePage()),
+                              );
                             },
                             style: ElevatedButton.styleFrom(
                               foregroundColor: Colors.white, // 버튼 내 텍스트의 색상
