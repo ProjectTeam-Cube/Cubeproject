@@ -1,9 +1,8 @@
-// reservation_screen.dart
+// main.dart 실행 시 호출
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
-import 'main.dart';
 import 'reservation_list_screen.dart';
 import 'repeat_notification_screen.dart';
 import 'reservation_info.dart';
@@ -210,33 +209,75 @@ class _ReservationScreenState extends State<ReservationScreen> {
   }
 
   void _completeReservation(BuildContext context) {
-    // 수정
-    setState(() {
-      reservations.add(
-        ReservationInfo(
-          dateTime: DateTime(
-            selectedDate!.year,
-            selectedDate!.month,
-            selectedDate!.day,
-            selectedTime.hour,
-            selectedTime.minute,
+    if (selectedDate != null && selectedWeekdays.every((element) => !element)) {
+      // 날짜만 선택한 경우
+      setState(() {
+        reservations.add(
+          ReservationInfo(
+            dateTime: DateTime(
+              selectedDate!.year,
+              selectedDate!.month,
+              selectedDate!.day,
+              selectedTime.hour,
+              selectedTime.minute,
+            ),
+            weekdays: [],
           ),
-          weekdays: selectedWeekdays
-              .asMap()
-              .entries
-              .where((entry) => entry.value)
-              .map((entry) => _getWeekdayName(entry.key))
-              .toList(),
+        );
+      });
+
+      // 예약 완료 후 예약 조회 화면으로 이동
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              ReservationListScreen(reservations: reservations),
         ),
       );
-    });
+    } else if (selectedWeekdays.any((element) => element) &&
+        selectedDate == null) {
+      // 요일만 선택한 경우
+      setState(() {
+        reservations.add(
+          ReservationInfo(
+            dateTime: DateTime.now(),
+            weekdays: selectedWeekdays
+                .asMap()
+                .entries
+                .where((entry) => entry.value)
+                .map((entry) => _getWeekdayName(entry.key))
+                .toList(),
+          ),
+        );
+      });
 
-    // 예약 완료 후 예약 조회 화면으로 이동
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ReservationListScreen(reservations: reservations),
-      ),
-    );
+      // 예약 완료 후 예약 조회 화면으로 이동
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              ReservationListScreen(reservations: reservations),
+        ),
+      );
+    } else {
+      // 날짜와 요일 모두 선택한 경우 (잘못된 경우)
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("예약 설정 오류"),
+            content: Text("날짜와 요일을 모두 선택할 수 없습니다."),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("확인"),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }

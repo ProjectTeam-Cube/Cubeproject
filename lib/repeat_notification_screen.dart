@@ -1,4 +1,4 @@
-// repeat_notification_screen.dart
+// 반복 알림 설정 클릭 시 이동되는 페이지
 
 import 'package:flutter/material.dart';
 
