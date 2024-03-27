@@ -4,6 +4,7 @@ import 'package:material_text_fields/material_text_fields.dart';
 import 'package:material_text_fields/theme/material_text_field_theme.dart';
 import 'package:material_text_fields/utils/form_validation.dart';
 
+import '../firstviewpage/main_screen.dart';
 import '../firstviewpage/main_screen_page.dart';
 import 'Agreement.dart';
 
@@ -177,7 +178,7 @@ class _LoginPageState extends State<LoginPage> {
                         //로그인 성공시 메인으로 이동
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (_) => HomePage()),
+                          MaterialPageRoute(builder: (_) => MainScreen()),
                         );
                       },
                       onError: (err) {

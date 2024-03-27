@@ -1,12 +1,34 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../user/auth_service.dart';
 import 'home.dart';
 import '../phone_number_list/phone_book.dart';
 import '../report/report.dart';
 import '../schedule/schedule.dart';
 import 'package:cube/user/log_in.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  User? _user;
+
+  @override
+  void initState() {
+    super.initState();
+    // FirebaseAuth의 상태 변경을 리스닝합니다.
+    _auth.authStateChanges().listen((User? user) {
+      setState(() {
+        _user = user;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,19 +41,21 @@ class HomePage extends StatelessWidget {
             width: 155,
           ),
           actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => LoginPage()), // LoginPage로 이동합니다.
-                );
-              },
-              child: Text(
-                '로그인',
-                style: TextStyle(fontSize: 15),
+            // 사용자가 로그인되지 않았다면 로그인 버튼을 표시합니다.
+            if (_user == null)
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => LoginPage()), // LoginPage로 이동합니다.
+                  );
+                },
+                child: Text(
+                  '로그인',
+                  style: TextStyle(fontSize: 15),
+                ),
               ),
-            ),
             GestureDetector(
               onTap: () {
                 print('알람 아이콘 클릭됨');
@@ -48,7 +72,10 @@ class HomePage extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                print('로그아웃 아이콘 클릭됨');
+                //로그아웃 버튼 눌렀을 때 로그인 페이지로 이동
+                context.read<AuthService>().signOut();
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => LoginPage()));
               },
               child: Container(
                 color: Colors.transparent, // 터치 영역을 시각화하기 위해 임시 색상을 추가할 수 있습니다.

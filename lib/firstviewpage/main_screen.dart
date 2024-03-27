@@ -36,23 +36,20 @@ class _MainScreenState extends State<MainScreen> {
         index: _currentIndex,
         children: _pages,
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 15.0),
-        child: BottomBarFloating(
-          // 여기서 BottomNavigationBar 스타일을 적용합니다.
-          items: items,
-          backgroundColor: Colors.white,
-          color: Colors.grey,
-          colorSelected: Colors.orange,
-          indexSelected: _currentIndex,
-          paddingVertical: 20,
-          iconSize: 30,
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index; // 탭 선택 시 인덱스 업데이트
-            });
-          },
-        ),
+      bottomNavigationBar: BottomBarFloating(
+        // 여기서 BottomNavigationBar 스타일을 적용합니다.
+        items: items,
+        backgroundColor: Colors.white,
+        color: Colors.grey,
+        colorSelected: Colors.orange,
+        indexSelected: _currentIndex,
+        paddingVertical: 20,
+        iconSize: 30,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index; // 탭 선택 시 인덱스 업데이트
+          });
+        },
       ),
     );
   }

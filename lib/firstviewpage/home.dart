@@ -32,7 +32,7 @@ class _HomeBannerState extends State<HomeBanner> {
                 children: <Widget>[
                   Container(
                     width: double.infinity, // 이미지의 너비를 꽉 차게 설정
-                    height: 130.0, // 이미지의 높이
+                    height: 100.0, // 이미지의 높이
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
                       image: DecorationImage(
@@ -85,7 +85,7 @@ class _HomeBannerState extends State<HomeBanner> {
                         ),
                       ),
                       child: Container(
-                        height: 105.0,
+                        height: 95.0,
                         padding: EdgeInsets.symmetric(
                             vertical: 3.0, horizontal: 5.0),
                         child: Stack(
@@ -137,7 +137,7 @@ class _HomeBannerState extends State<HomeBanner> {
                         ),
                       ),
                       child: Container(
-                        height: 105.0,
+                        height: 95.0,
                         padding: EdgeInsets.symmetric(
                             vertical: 3.0, horizontal: 5.0),
                         child: Stack(
@@ -199,7 +199,7 @@ class _HomeBannerState extends State<HomeBanner> {
                             ),
                           ),
                           child: Container(
-                            height: 105.0,
+                            height: 95.0,
                             padding: EdgeInsets.symmetric(
                                 vertical: 3.0, horizontal: 5.0),
                             child: Stack(
@@ -252,7 +252,7 @@ class _HomeBannerState extends State<HomeBanner> {
                             ),
                           ),
                           child: Container(
-                            height: 105.0,
+                            height: 95.0,
                             padding: EdgeInsets.symmetric(
                                 vertical: 3.0, horizontal: 5.0),
                             child: Stack(
@@ -310,7 +310,7 @@ class _HomeBannerState extends State<HomeBanner> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(6.0),
               child: Container(
                 height: 1.0,
                 width: double.infinity,
@@ -318,7 +318,7 @@ class _HomeBannerState extends State<HomeBanner> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20.0, top: 10.0, right: 20),
+              padding: const EdgeInsets.only(left: 20.0, right: 20),
               child: Row(children: <Widget>[
                 Expanded(
                   child: Text(
