@@ -14,8 +14,26 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "ansicolor",
+      "rootUri": "file:///C:/Users/804-16/AppData/Local/Pub/Cache/hosted/pub.dev/ansicolor-2.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "appkit_ui_element_colors",
       "rootUri": "file:///C:/Users/804-16/AppData/Local/Pub/Cache/hosted/pub.dev/appkit_ui_element_colors-1.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "archive",
+      "rootUri": "file:///C:/Users/804-16/AppData/Local/Pub/Cache/hosted/pub.dev/archive-3.4.10",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "args",
+      "rootUri": "file:///C:/Users/804-16/AppData/Local/Pub/Cache/hosted/pub.dev/args-2.4.2",
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
@@ -74,10 +92,22 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "convert",
+      "rootUri": "file:///C:/Users/804-16/AppData/Local/Pub/Cache/hosted/pub.dev/convert-3.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "cr_calendar",
       "rootUri": "file:///C:/Users/804-16/AppData/Local/Pub/Cache/hosted/pub.dev/cr_calendar-1.2.1",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "crypto",
+      "rootUri": "file:///C:/Users/804-16/AppData/Local/Pub/Cache/hosted/pub.dev/crypto-3.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
     },
     {
       "name": "csslib",
@@ -164,6 +194,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_native_splash",
+      "rootUri": "file:///C:/Users/804-16/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_native_splash-2.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "flutter_neat_and_clean_calendar",
       "rootUri": "file:///C:/Users/804-16/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_neat_and_clean_calendar-0.3.18+40",
       "packageUri": "lib/",
@@ -222,6 +258,12 @@
       "rootUri": "file:///C:/Users/804-16/AppData/Local/Pub/Cache/hosted/pub.dev/http_parser-4.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "image",
+      "rootUri": "file:///C:/Users/804-16/AppData/Local/Pub/Cache/hosted/pub.dev/image-4.1.7",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
     },
     {
       "name": "intl",
@@ -320,8 +362,20 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "petitparser",
+      "rootUri": "file:///C:/Users/804-16/AppData/Local/Pub/Cache/hosted/pub.dev/petitparser-6.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
       "name": "plugin_platform_interface",
       "rootUri": "file:///C:/Users/804-16/AppData/Local/Pub/Cache/hosted/pub.dev/plugin_platform_interface-2.1.8",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "pointycastle",
+      "rootUri": "file:///C:/Users/804-16/AppData/Local/Pub/Cache/hosted/pub.dev/pointycastle-3.7.4",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -404,6 +458,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "universal_io",
+      "rootUri": "file:///C:/Users/804-16/AppData/Local/Pub/Cache/hosted/pub.dev/universal_io-2.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "vector_math",
       "rootUri": "file:///C:/Users/804-16/AppData/Local/Pub/Cache/hosted/pub.dev/vector_math-2.1.4",
       "packageUri": "lib/",
@@ -422,13 +482,25 @@
       "languageVersion": "3.3"
     },
     {
+      "name": "xml",
+      "rootUri": "file:///C:/Users/804-16/AppData/Local/Pub/Cache/hosted/pub.dev/xml-6.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "yaml",
+      "rootUri": "file:///C:/Users/804-16/AppData/Local/Pub/Cache/hosted/pub.dev/yaml-3.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
       "name": "cube",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-03-26T05:22:55.687883Z",
+  "generated": "2024-03-27T06:38:00.990994Z",
   "generator": "pub",
   "generatorVersion": "3.3.2"
 }

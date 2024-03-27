@@ -8,21 +8,32 @@ import 'package:provider/provider.dart';
 import 'MyFormBody.dart';
 import 'app_bar.dart';
 import 'bottom_navigation_bar.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized(); //main함수에서 async 사용하기 위함
   await Firebase.initializeApp(); //firebase앱 시작
 
+  // 스플래시 화면의 시작부분에 widgetBinding 을 설정 함으로써,
+  // 언제 스플래시 화면을 끌지 Controll 할수 있다
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  // 스플래시 화면 보여줘라. (preserve)
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding); //splash
+
   runApp(
-      MultiProvider(
-          providers: [
-            ChangeNotifierProvider(create: (context) => AuthService()),
-          ],
-          child: const MyApp()
-      ),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AuthService()),
+      ],
+      child: const MyApp(),
+    ),
   );
+
+  // runApp() 함수 호출 이후에 스플래시 화면을 제거
+  FlutterNativeSplash.remove();
 }
+
 // Provider를 통한 authService 사용
 // authService 전역 변수
 //final AuthService authService = AuthService();

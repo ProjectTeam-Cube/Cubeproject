@@ -3,17 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:material_text_fields/material_text_fields.dart';
 import 'package:material_text_fields/theme/material_text_field_theme.dart';
 import 'package:material_text_fields/utils/form_validation.dart';
-
 import 'Agreement.dart';
-import 'SignUp.dart';
 import 'CheckBox.dart';
-import 'main.dart';
-
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cube/auth_service.dart';
 import 'bottom_navigation_bar.dart';
-import 'ButtonList.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

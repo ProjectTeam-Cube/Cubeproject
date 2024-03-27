@@ -18,3 +18,4 @@ com.example.cube.app-merged_res-16 C:\Users\804-16\Desktop\Cubeproject\build\app
 com.example.cube.app-packaged_res-17 C:\Users\804-16\Desktop\Cubeproject\build\cloud_firestore\intermediates\packaged_res\debug
 com.example.cube.app-packaged_res-18 C:\Users\804-16\Desktop\Cubeproject\build\firebase_auth\intermediates\packaged_res\debug
 com.example.cube.app-packaged_res-19 C:\Users\804-16\Desktop\Cubeproject\build\firebase_core\intermediates\packaged_res\debug
+com.example.cube.app-packaged_res-20 C:\Users\804-16\Desktop\Cubeproject\build\flutter_native_splash\intermediates\packaged_res\debug
