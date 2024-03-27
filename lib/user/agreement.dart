@@ -229,12 +229,3 @@ class _AgreementState extends State<Agreement> {
     );
   }
 }
-
-//기본구조
-// return MaterialApp(
-// home: Scaffold(
-// appBar: AppBar(),
-// body: Container(),
-// bottomNavigationBar: BottomAppBar (),
-// )
-// );

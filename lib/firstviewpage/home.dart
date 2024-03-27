@@ -1,13 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../appbarAndnavigatorbar/bottom_navigation_bar.dart';
-import '../appbarAndnavigatorbar/bottom_navigation_bar_provider.dart';
+import '../phone_number_list/phone_book_main.dart';
+import '../schedule/schedule_main.dart';
 import '../call/memory.dart';
 import '../phone_number_add/phone_number_register.dart';
-import '../phone_number_list/phone_book.dart';
 import '../reservation/reservation_list_screen.dart';
-import '../schedule/schedule.dart';
 
 class HomeBanner extends StatefulWidget {
   @override
@@ -124,18 +121,11 @@ class _HomeBannerState extends State<HomeBanner> {
                     // 첫 번째 컨테이너를 Expanded 위젯으로 감싼다.
                     child: TextButton(
                       onPressed: () {
-                        // Provider를 사용하여 현재 선택된 인덱스를 업데이트
-                        final provider =
-                            Provider.of<BottomNavigationBarProvider>(context,
-                                listen: false);
-                        provider.currentIndex =
-                            1; // 예를 들어, RegistrationPage가 두 번째 탭에 있다고 가정
-
                         // 페이지 이동
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => RegistrationPage(),
+                            builder: (context) => PhoneBookMain(),
                           ),
                         );
                       },
@@ -246,19 +236,11 @@ class _HomeBannerState extends State<HomeBanner> {
                         // 첫 번째 컨테이너를 Expanded 위젯으로 감싼다.
                         child: TextButton(
                           onPressed: () {
-                            // Provider를 사용하여 현재 선택된 인덱스를 업데이트
-                            final provider =
-                                Provider.of<BottomNavigationBarProvider>(
-                                    context,
-                                    listen: false);
-                            provider.currentIndex =
-                                4; // 예를 들어, RegistrationPage가 두 번째 탭에 있다고 가정
-
                             // 페이지 이동
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => Schedule(),
+                                builder: (context) => ScheduleMain(),
                               ),
                             );
                           },

@@ -9,11 +9,11 @@ class Report extends StatefulWidget {
 
 class _ReportState extends State<Report> {
   final List<ContactRecord> contacts = [
+    ContactRecord(name: '아빠', call: '통화성공', time: '2분', phonenum: '2024.03.4'),
     ContactRecord(name: '이은재', call: '통화성공', time: '1분', phonenum: '2024.03.3'),
     ContactRecord(
         name: '배정현', call: '통화실패', time: '취소된 통화', phonenum: '2024.03.2'),
     ContactRecord(name: '김이랑', call: '통화성공', time: '2분', phonenum: '2024.03.2'),
-    // Add more contact records as needed
   ];
 
   String dropdownValue = '3월';
@@ -21,14 +21,47 @@ class _ReportState extends State<Report> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100.0),
-          child: Padding(
-            padding: const EdgeInsets.only(top: 17.0),
-            child: BaseAppBar(),
-          )),
+      appBar: AppBar(
+        title: Text(
+          '리포트',
+          style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF393939)),
+        ),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(1.0), // 하단 선의 높이 설정
+          child: Divider(
+            height: 0.5, // 선의 높이 설정
+            color: Color(0xFFe1e1e1), // 선의 색상 설정
+          ),
+        ),
+        actions: <Widget>[
+          // 우측 끝에 아이콘 버튼 추가
+          IconButton(
+            icon: Icon(
+              Icons.search,
+              color: Color(0xFF393939),
+            ), // 첫 번째 아이콘
+            onPressed: () {
+              // 첫 번째 아이콘 버튼의 동작 정의
+              print('검색 버튼이 클릭되었습니다.');
+            },
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.more_vert,
+              color: Color(0xFF393939),
+            ), // 두 번째 아이콘
+            onPressed: () {
+              // 두 번째 아이콘 버튼의 동작 정의
+              print('더보기 버튼이 클릭되었습니다.');
+            },
+          ),
+        ],
+      ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
+        padding: const EdgeInsets.only(top: 20, left: 15, right: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

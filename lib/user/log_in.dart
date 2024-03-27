@@ -4,7 +4,7 @@ import 'package:material_text_fields/material_text_fields.dart';
 import 'package:material_text_fields/theme/material_text_field_theme.dart';
 import 'package:material_text_fields/utils/form_validation.dart';
 
-import '../appbarAndnavigatorbar/bottom_navigation_bar.dart';
+import '../firstviewpage/main_screen_page.dart';
 import 'Agreement.dart';
 
 import 'CheckBox.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
-import '../phone_number_list/phone_book.dart';
+import '../phone_number_list/phone_number_list.dart';
 import 'repeat_notification_screen.dart';
 import 'reservation_info.dart';
 import 'reservation_list_screen.dart';
@@ -26,12 +26,42 @@ class _ReservationScreenState extends State<ReservationScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "예약 설정",
+          '예약 등록',
           style: TextStyle(
-            fontWeight: FontWeight.bold,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF393939)),
+        ),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(1.0), // 하단 선의 높이 설정
+          child: Divider(
+            height: 0.5, // 선의 높이 설정
+            color: Color(0xFFe1e1e1), // 선의 색상 설정
           ),
         ),
-        backgroundColor: Colors.white,
+        actions: <Widget>[
+          // 우측 끝에 아이콘 버튼 추가
+          IconButton(
+            icon: Icon(
+              Icons.search,
+              color: Color(0xFF393939),
+            ), // 첫 번째 아이콘
+            onPressed: () {
+              // 첫 번째 아이콘 버튼의 동작 정의
+              print('검색 버튼이 클릭되었습니다.');
+            },
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.more_vert,
+              color: Color(0xFF393939),
+            ), // 두 번째 아이콘
+            onPressed: () {
+              // 두 번째 아이콘 버튼의 동작 정의
+              print('더보기 버튼이 클릭되었습니다.');
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -39,11 +69,24 @@ class _ReservationScreenState extends State<ReservationScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "시간 선택:",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
+              Padding(
+                padding: const EdgeInsets.only(left: 12.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min, // 필요한 만큼의 공간만 사용
+                  children: <Widget>[
+                    Icon(
+                      Icons.access_time, // 원하는 아이콘 선택
+                      color: Color(0xFF26C100),
+                    ),
+                    SizedBox(width: 8.0), // 아이콘과 텍스트 사이의 간격 조절
+                    Text(
+                      "시간 선택",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(height: 8),
@@ -62,80 +105,32 @@ class _ReservationScreenState extends State<ReservationScreen> {
                   },
                 ),
               ),
+              Divider(
+                height: 1, // 선의 높이 설정
+                color: Colors.grey[300], // 선의 색상 설정
+              ),
               SizedBox(height: 16),
-              Center(
-                child: TextButton(
-                  onPressed: _selectDate,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.calendar_today),
-                      SizedBox(width: 8),
-                      Text(
-                        selectedDate != null
-                            ? "${selectedDate!.year}년 ${selectedDate!.month}월 ${selectedDate!.day}일"
-                            : "날짜 선택",
+              Padding(
+                padding: const EdgeInsets.only(left: 12.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min, // 필요한 만큼의 공간만 사용
+                  children: <Widget>[
+                    Icon(
+                      Icons.calendar_month, // 원하는 아이콘 선택
+                      color: Color(0xFF26C100),
+                    ),
+                    SizedBox(width: 10.0), // 아이콘과 텍스트 사이의 간격 조절
+                    Text(
+                      "요일 선택",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      // 연락처 불러오기 기능 구현
-                      // 여기에 연락처 불러오기 기능을 구현합니다.
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => PhoneBook()));
-                    },
-                    child: Text(
-                      '연락처 불러오기',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        color: Colors.black, // 원하는 색상으로 설정하세요.
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      // Navigate to RepeatNotificationScreen
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => RepeatNotificationScreen(),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      '반복 알림 설정:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 8),
-                  CupertinoSwitch(
-                    value: repeatNotification,
-                    onChanged: (value) {
-                      setState(() {
-                        repeatNotification = value;
-                      });
-                    },
-                  ),
-                ],
-              ),
-              SizedBox(height: 16),
+              SizedBox(height: 5),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -168,13 +163,115 @@ class _ReservationScreenState extends State<ReservationScreen> {
                 ],
               ),
               SizedBox(height: 16),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    _completeReservation(context); // 수정
-                  },
-                  child: Text("예약 완료"),
+              Divider(
+                height: 1, // 선의 높이 설정
+                color: Colors.grey[300], // 선의 색상 설정
+              ),
+              SizedBox(height: 16),
+              TextButton(
+                onPressed: _selectDate,
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.event,
+                      color: Color(0xFF26C100),
+                    ),
+                    SizedBox(width: 10),
+                    Text(
+                      selectedDate != null
+                          ? "날짜 선택 : ${selectedDate!.year}년 ${selectedDate!.month}월 ${selectedDate!.day}일"
+                          : "특정일 지정",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Colors.black87),
+                    ),
+                  ],
                 ),
+              ),
+              SizedBox(height: 16),
+              Divider(
+                height: 1, // 선의 높이 설정
+                color: Colors.grey[300], // 선의 색상 설정
+              ),
+              SizedBox(height: 16),
+              Row(
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      // 연락처 불러오기 기능 구현
+                      // 여기에 연락처 불러오기 기능을 구현합니다.
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PhoneNumberList()));
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min, // 필요한 만큼의 공간만 사용
+                      children: <Widget>[
+                        Icon(
+                          Icons.auto_stories, // 원하는 아이콘 선택
+                          color: Color(0xFF26C100), // 아이콘 크기 조절
+                        ),
+                        SizedBox(width: 10.0), // 아이콘과 텍스트 사이의 간격 조절
+                        Text(
+                          "연락처 불러오기",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: Colors.black87),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 16),
+              Divider(
+                height: 1, // 선의 높이 설정
+                color: Colors.grey[300], // 선의 색상 설정
+              ),
+              SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      // Navigate to RepeatNotificationScreen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RepeatNotificationScreen(),
+                        ),
+                      );
+                    },
+                    child: Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.alarm, // 원하는 아이콘 선택
+                          color: Color(0xFF26C100), // 아이콘 크기 조절
+                        ),
+                        SizedBox(width: 10.0),
+                        Text(
+                          '반복 알림 설정',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 140),
+                  CupertinoSwitch(
+                    value: repeatNotification,
+                    onChanged: (value) {
+                      setState(() {
+                        repeatNotification = value;
+                      });
+                    },
+                  ),
+                ],
               ),
               SizedBox(height: 16),
               TextFormField(
@@ -186,7 +283,63 @@ class _ReservationScreenState extends State<ReservationScreen> {
                       EdgeInsets.symmetric(vertical: 30), // 텍스트 필드 내부 패딩 조정
                 ),
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 30),
+              Row(
+                mainAxisAlignment:
+                    MainAxisAlignment.spaceEvenly, // 버튼 사이에 공간을 균등하게 배분
+                children: <Widget>[
+                  SizedBox(
+                    width: 165,
+                    height: 55,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        // backgroundColor: MaterialStateProperty.all(Colors.white), // 버튼 배경색을 하얀색으로 설정
+                        // foregroundColor: MaterialStateProperty.all(Colors.black), // 버튼 텍스트 색상을 검은색으로 설정
+                        foregroundColor: MaterialStateProperty.all(
+                            Colors.black), // 버튼 텍스트 색상을 검은색으로 설정
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(10), // 살짝 각진 모서리를 위해 설정
+                          ),
+                        ),
+                      ),
+                      child: Text(
+                        "취소하기",
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 165, // 화면 너비의 50%에서 조금 빼서 버튼 사이에 공간을 만듦
+                    height: 55,
+                    child: ElevatedButton(
+                      child: Text(
+                        "등록하기",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFFFF6F0F), // 버튼 배경색을 설정
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(10), // 살짝 각진 모서리를 위해 설정
+                        ),
+                      ),
+                      onPressed: () {
+                        _completeReservation(context); // 수정
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),

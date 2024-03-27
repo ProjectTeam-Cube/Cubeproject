@@ -6,14 +6,14 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../phone_number_add/phone_number_register.dart';
 
-class PhoneBook extends StatefulWidget {
-  const PhoneBook({Key? key}) : super(key: key);
+class PhoneBookMain extends StatefulWidget {
+  const PhoneBookMain({Key? key}) : super(key: key);
 
   @override
-  _PhoneBookState createState() => _PhoneBookState();
+  _PhoneBookMainState createState() => _PhoneBookMainState();
 }
 
-class _PhoneBookState extends State<PhoneBook> {
+class _PhoneBookMainState extends State<PhoneBookMain> {
   List<ContactInfo> _userList = [];
 
   @override
@@ -70,6 +70,12 @@ class _PhoneBookState extends State<PhoneBook> {
               color: Color(0xFFe1e1e1), // 선의 색상 설정
             ),
           ),
+          leading: IconButton(
+            icon: Icon(CupertinoIcons.chevron_back, color: Color(0xFF393939)),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
           actions: <Widget>[
             // 우측 끝에 아이콘 버튼 추가
             IconButton(
@@ -99,7 +105,7 @@ class _PhoneBookState extends State<PhoneBook> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             FloatingActionButton(
-              heroTag: 'uniqueTag1',
+              heroTag: 'uniqueTag2',
               onPressed: () {
                 Navigator.push(
                   context,
@@ -229,7 +235,7 @@ class ContactInfo {
   ContactInfo(
       {required this.name,
       required this.phoneNumber,
-      this.imagePath = 'assets/images/leedohyun.jpg'});
+      this.imagePath = 'assets/images/basic.png'});
 
   Map<String, dynamic> toJson() => {
         'name': name,
@@ -241,7 +247,7 @@ class ContactInfo {
     return ContactInfo(
       name: json['name'],
       phoneNumber: json['phone'],
-      imagePath: json['imagePath'] ?? 'assets/images/leedohyun.jpg',
+      imagePath: json['imagePath'] ?? 'assets/images/basic.png',
     );
   }
 }

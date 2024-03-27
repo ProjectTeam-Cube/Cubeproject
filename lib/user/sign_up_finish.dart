@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../appbarAndnavigatorbar/bottom_navigation_bar.dart';
+import '../firstviewpage/main_screen_page.dart';
 
 class SingUp_finish extends StatelessWidget {
   const SingUp_finish({super.key});

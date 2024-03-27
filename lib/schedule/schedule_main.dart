@@ -36,12 +36,12 @@ List<DateTime> daysInRange(DateTime start, DateTime end) {
   return days;
 }
 
-class Schedule extends StatefulWidget {
+class ScheduleMain extends StatefulWidget {
   @override
-  _ScheduleState createState() => _ScheduleState();
+  _ScheduleMainState createState() => _ScheduleMainState();
 }
 
-class _ScheduleState extends State<Schedule> {
+class _ScheduleMainState extends State<ScheduleMain> {
   void _showAddEventDialog() {
     final TextEditingController _titleController = TextEditingController();
     Color _selectedColor = Colors.blue; // 기본 색상 설정
@@ -163,7 +163,45 @@ class _ScheduleState extends State<Schedule> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(
+          '일정 관리',
+          style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF393939)),
+        ),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(1.0), // 하단 선의 높이 설정
+          child: Divider(
+            height: 0.5, // 선의 높이 설정
+            color: Color(0xFFe1e1e1), // 선의 색상 설정
+          ),
+        ),
+        actions: <Widget>[
+          // 우측 끝에 아이콘 버튼 추가
+          IconButton(
+            icon: Icon(
+              Icons.search,
+              color: Color(0xFF393939),
+            ), // 첫 번째 아이콘
+            onPressed: () {
+              // 첫 번째 아이콘 버튼의 동작 정의
+              print('검색 버튼이 클릭되었습니다.');
+            },
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.more_vert,
+              color: Color(0xFF393939),
+            ), // 두 번째 아이콘
+            onPressed: () {
+              // 두 번째 아이콘 버튼의 동작 정의
+              print('더보기 버튼이 클릭되었습니다.');
+            },
+          ),
+        ],
+      ),
       body: Column(
         children: [
           TableCalendar<Event>(
@@ -297,7 +335,7 @@ class _ScheduleState extends State<Schedule> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        heroTag: 'uniqueTagFor3',
+        heroTag: 'uniqueTagFor4',
         onPressed: _showAddEventDialog,
         child: Icon(Icons.add),
       ),
@@ -306,5 +344,5 @@ class _ScheduleState extends State<Schedule> {
 }
 
 void main() {
-  runApp(MaterialApp(home: Schedule()));
+  runApp(MaterialApp(home: ScheduleMain()));
 }
