@@ -280,7 +280,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                   hintText: '간단한 메모', // 텍스트 필드 내에 표시될 힌트 텍스트
                   border: OutlineInputBorder(),
                   contentPadding:
-                      EdgeInsets.symmetric(vertical: 30), // 텍스트 필드 내부 패딩 조정
+                      EdgeInsets.symmetric(vertical: 40), // 텍스트 필드 내부 패딩 조정
                 ),
               ),
               SizedBox(height: 30),
