@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'repeat_notification_screen.dart';
 import 'reservation_info.dart';
 import 'reservation_list_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ReservationScreen extends StatefulWidget {
   const ReservationScreen({Key? key}) : super(key: key);
@@ -19,6 +21,27 @@ class _ReservationScreenState extends State<ReservationScreen> {
   bool repeatNotification = false;
   TextEditingController memoController = TextEditingController();
   List<ReservationInfo> reservations = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadReservations();
+  }
+
+  Future<void> _loadReservations() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? jsonReservations = prefs.getString('reservations');
+    if (jsonReservations != null) {
+      List<dynamic> decoded = jsonDecode(jsonReservations);
+      setState(() {
+        reservations = decoded.map((e) => ReservationInfo.fromJson(e)).toList();
+      });
+    } else {
+      setState(() {
+        reservations = [];
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -226,7 +249,8 @@ class _ReservationScreenState extends State<ReservationScreen> {
     }
   }
 
-  void _completeReservation(BuildContext context) {
+  void _completeReservation(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     if (selectedDate != null && selectedWeekdays.every((element) => !element)) {
       // 날짜만 선택한 경우
       setState(() {
@@ -245,12 +269,14 @@ class _ReservationScreenState extends State<ReservationScreen> {
         );
       });
 
+      // SharedPreferences에 저장
+      await prefs.setString('reservations', jsonEncode(reservations));
+
       // 예약 완료 후 예약 조회 화면으로 이동
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) =>
-              ReservationListScreen(reservations: reservations),
+          builder: (context) => ReservationListScreen(),
         ),
       );
     } else if (selectedWeekdays.any((element) => element) &&
@@ -271,12 +297,14 @@ class _ReservationScreenState extends State<ReservationScreen> {
         );
       });
 
+      // SharedPreferences에 저장
+      await prefs.setString('reservations', jsonEncode(reservations));
+
       // 예약 완료 후 예약 조회 화면으로 이동
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) =>
-              ReservationListScreen(reservations: reservations),
+          builder: (context) => ReservationListScreen(),
         ),
       );
     } else {

@@ -1,17 +1,39 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'reservation_info.dart';
 
 class ReservationListScreen extends StatefulWidget {
-  final List<ReservationInfo> reservations;
-
-  const ReservationListScreen({Key? key, required this.reservations})
-      : super(key: key);
+  const ReservationListScreen({Key? key}) : super(key: key);
 
   @override
   _ReservationListScreenState createState() => _ReservationListScreenState();
 }
 
 class _ReservationListScreenState extends State<ReservationListScreen> {
+  late List<ReservationInfo> reservations;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadReservations();
+  }
+
+  Future<void> _loadReservations() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? jsonReservations = prefs.getString('reservations');
+    if (jsonReservations != null) {
+      List<dynamic> decoded = jsonDecode(jsonReservations);
+      setState(() {
+        reservations = decoded.map((e) => ReservationInfo.fromJson(e)).toList();
+      });
+    } else {
+      setState(() {
+        reservations = [];
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,12 +55,12 @@ class _ReservationListScreenState extends State<ReservationListScreen> {
             SizedBox(height: 16),
             Expanded(
               child: ListView.separated(
-                itemCount: widget.reservations.length,
+                itemCount: reservations.length,
                 separatorBuilder: (BuildContext context, int index) {
-                  return SizedBox(height: 16); // 아이템과 아이템 사이의 간격
+                  return SizedBox(height: 16);
                 },
                 itemBuilder: (BuildContext context, int index) {
-                  final reservation = widget.reservations[index];
+                  final reservation = reservations[index];
                   return Card(
                     elevation: 3,
                     margin: EdgeInsets.symmetric(vertical: 8),
@@ -111,38 +133,17 @@ class _ReservationListScreenState extends State<ReservationListScreen> {
     );
   }
 
-  void _deleteReservation(int index) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("예약 삭제"),
-          content: Text("이 예약을 삭제하시겠습니까?"),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text("취소"),
-            ),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  widget.reservations.removeAt(index);
-                });
-                Navigator.of(context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text("예약이 삭제되었습니다."),
-                    duration: Duration(seconds: 2),
-                  ),
-                );
-              },
-              child: Text("삭제"),
-            ),
-          ],
-        );
-      },
+  void _deleteReservation(int index) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      reservations.removeAt(index);
+    });
+    await prefs.setString('reservations', jsonEncode(reservations));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("예약이 삭제되었습니다."),
+        duration: Duration(seconds: 2),
+      ),
     );
   }
 

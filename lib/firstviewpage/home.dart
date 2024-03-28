@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../call/memory.dart';
+import '../reservation/reservation_list_screen.dart';
 
 class HomeBanner extends StatefulWidget {
   @override
@@ -140,35 +141,46 @@ class _HomeBannerState extends State<HomeBanner> {
                         MainAxisAlignment.spaceEvenly, // 컨테이너 사이에 공간 동일하게 배분
                     children: [
                       Expanded(
-                        // 첫 번째 컨테이너를 Expanded 위젯으로 감싼다.
-                        child: Container(
-                          height: 120.0,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 17.0),
-                          child: Stack(
-                            children: [
-                              Align(
-                                alignment: Alignment.topLeft, // 왼쪽 위 정렬
-                                child: Text(
-                                  '예약 등록',
-                                  style: TextStyle(
+                        child: GestureDetector(
+                          onTap: () {
+                            // 예약 조회 화면으로 이동
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ReservationListScreen(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            height: 120.0,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 17.0),
+                            child: Stack(
+                              children: [
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    '예약 조회',
+                                    style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 18),
+                                      fontSize: 18,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              Align(
-                                alignment: Alignment.bottomRight, // 오른쪽 아래 정렬
-                                child: Icon(
-                                  Icons.comment,
-                                  color: Colors.green,
-                                  size: 55,
+                                Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: Icon(
+                                    Icons.comment,
+                                    color: Colors.green,
+                                    size: 55,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
