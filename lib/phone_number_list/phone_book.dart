@@ -168,7 +168,7 @@ class _PhoneBookState extends State<PhoneBook> {
                       File(currentContact.imagePath).existsSync()) {
                     imageProvider = FileImage(File(currentContact.imagePath));
                   } else {
-                    imageProvider = AssetImage('assets/images/leedohyun.jpg');
+                    imageProvider = AssetImage('assets/images/basic.png');
                   }
 
                   return Slidable(

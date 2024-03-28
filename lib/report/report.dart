@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../appbarAndnavigatorbar/app_bar.dart';
+import '../main.dart';
 
 class Report extends StatefulWidget {
   @override
@@ -55,7 +56,8 @@ class _ReportState extends State<Report> {
             ), // 두 번째 아이콘
             onPressed: () {
               // 두 번째 아이콘 버튼의 동작 정의
-              print('더보기 버튼이 클릭되었습니다.');
+              prefs.clear();
+              print('온보딩 초기화 버튼');
             },
           ),
         ],
