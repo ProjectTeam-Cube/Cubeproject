@@ -104,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.only(top: 20.0, right: 25, left: 25),
               child: MaterialTextField(
                 keyboardType: TextInputType.text,
-                hint: '비밀번호호',
+                hint: '비밀번호',
                 labelText: 'Password',
                 textInputAction: TextInputAction.next,
                 prefixIcon: const Icon(Icons.password),

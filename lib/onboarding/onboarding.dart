@@ -234,7 +234,7 @@ class IntroScreenDefaultState extends State<IntroScreenDefault> {
   }
 
   void onDonePress() {
-    prefs.setBool('isOnboarded', true);
+    //prefs.setBool('isOnboarded', true);
     Navigator.push(
       context,
       MaterialPageRoute(

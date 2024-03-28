@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../phone_number_list/phone_book_main.dart';
@@ -7,6 +9,11 @@ import '../phone_number_add/phone_number_register.dart';
 import '../reservation/reservation_list_screen.dart';
 
 class HomeBanner extends StatefulWidget {
+  final File? imageFile;
+  final String? textData;
+
+  const HomeBanner({Key? key, this.imageFile, this.textData}) : super(key: key);
+
   @override
   State<HomeBanner> createState() => _HomeBannerState();
 }
@@ -345,6 +352,57 @@ class _HomeBannerState extends State<HomeBanner> {
                 ),
               ]),
             ),
+            /**
+            Padding(
+              padding:
+                  const EdgeInsets.only(left: 20.0, top: 10.0, right: 20.0),
+              child: Row(
+                children: <Widget>[
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0), // 둥근 모서리의 반지름 설정
+                    child: widget.imageFile != null
+                        ? Image.file(
+                            widget.imageFile!,
+                            width: 130.0, // 이미지 너비 설정
+                            height: 90.0, // 이미지 높이 설정
+                            fit: BoxFit.cover, // 이미지를 채우는 방식
+                          )
+                        : Container(
+                            width: 130.0, // 빈 컨테이너의 너비 설정
+                            height: 90.0, // 빈 컨테이너의 높이 설정
+                          ),
+                  ),
+                  SizedBox(width: 10.0), // 이미지와 텍스트 사이의 간격
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment:
+                          CrossAxisAlignment.start, // 텍스트를 왼쪽 정렬
+                      children: <Widget>[
+                        Text(
+                          '이렇게나 좋아하시는데 진작에..',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Color(0xFFFF6F0F),
+                              fontWeight: FontWeight.bold),
+                        ),
+                        // 조건부로 추가되는 위젯
+                        if (widget.textData != null) ...[
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 8.0), // 상단에 약간의 간격을 추가
+                            child: Text(
+                              widget.textData!,
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+                */
             Padding(
               padding:
                   const EdgeInsets.only(left: 20.0, top: 10.0, right: 20.0),
@@ -395,16 +453,19 @@ class _HomeBannerState extends State<HomeBanner> {
                   SizedBox(width: 10.0), // 이미지와 텍스트 사이의 간격
                   Expanded(
                     child: Column(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.start, // 텍스트를 왼쪽 정렬
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text('할머니가 “열 부자가 안 부럽대요”',
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Color(0xFFFF6F0F),
-                                fontWeight: FontWeight.bold)),
-                        Text('결혼하고 첫집에서 다음집으로 이사를 계획하면서 매매를 하게되었고..',
-                            style: TextStyle(fontSize: 14)),
+                        Text(
+                          '할머니가 “열 부자가 안 부럽대요”',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Color(0xFFFF6F0F),
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          '결혼하고 첫집에서 다음집으로 이사를 계획하면서 매매를 하게되었고..',
+                          style: TextStyle(fontSize: 14),
+                        ),
                       ],
                     ),
                   ),

@@ -3,22 +3,23 @@ import 'package:flutter/material.dart';
 import '../alarm/notification.dart';
 import '../firstviewpage/main_screen.dart';
 import 'call.dart';
+import 'memory.dart';
 
-class ModalReservation extends StatefulWidget {
-  const ModalReservation({Key? key}) : super(key: key);
+class ModalMemo extends StatefulWidget {
+  const ModalMemo({Key? key}) : super(key: key);
 
   @override
-  State<ModalReservation> createState() => _ModalReservationState();
+  State<ModalMemo> createState() => _ModalMemoState();
 }
 
-class _ModalReservationState extends State<ModalReservation> {
+class _ModalMemoState extends State<ModalMemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/modalend.jpg"),
+            image: AssetImage("assets/images/modalstart.jpg"),
             fit: BoxFit.cover,
           ),
         ),
@@ -41,7 +42,7 @@ class _ModalReservationState extends State<ModalReservation> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        'assets/images/reservation.png',
+                        'assets/images/post.png',
                         width: 35,
                         height: 35,
                       ),
@@ -82,7 +83,7 @@ class _ModalReservationState extends State<ModalReservation> {
                     children: [
                       SizedBox(height: 20),
                       Text(
-                        '예약된 시간입니다.',
+                        '통화가 종료되었습니다.',
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 14),
                       ),
@@ -90,14 +91,21 @@ class _ModalReservationState extends State<ModalReservation> {
                       RichText(
                         textAlign: TextAlign.center,
                         text: TextSpan(
-                          text: '전화',
+                          text: '오늘의',
                           style: TextStyle(
-                              color: Colors.orange,
+                              color: Color(0xFF777777),
                               fontWeight: FontWeight.bold,
                               fontSize: 16),
                           children: [
                             TextSpan(
-                              text: '를 실행해 볼까요?',
+                              text: ' 통화기록',
+                              style: TextStyle(
+                                  color: Colors.orange,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16),
+                            ),
+                            TextSpan(
+                              text: '을 남겨 볼까요?',
                               style: TextStyle(
                                   color: Color(0xFF777777),
                                   fontWeight: FontWeight.bold,
@@ -148,7 +156,7 @@ class _ModalReservationState extends State<ModalReservation> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        Call()), // LoginPage로 이동합니다.
+                                        Memory()), // LoginPage로 이동합니다.
                               );
                             },
                             style: ButtonStyle(

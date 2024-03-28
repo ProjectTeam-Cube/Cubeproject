@@ -2,8 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../alarm/aplication_alarm.dart';
-import '../call/modal_dialog.dart';
 import '../call/modal_start.dart';
 import '../user/auth_service.dart';
 import 'home.dart';

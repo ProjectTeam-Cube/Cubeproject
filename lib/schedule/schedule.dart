@@ -327,6 +327,8 @@ class _ScheduleState extends State<Schedule> {
                           bool isPastOrToday = eventDate.isBefore(today) ||
                               eventDate.isAtSameMomentAs(today);
 
+                          bool isFuture = eventDate.isAfter(DateTime.now());
+
                           return Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: Container(
@@ -354,65 +356,71 @@ class _ScheduleState extends State<Schedule> {
                                     child: ListTile(
                                       title: Text(value[index].title),
                                       onTap: () => print('${value[index]}'),
-                                      trailing: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(
-                                            "실패",
-                                            style: TextStyle(
-                                              fontSize:
-                                                  12, // 여기서 텍스트 크기를 조절합니다.
-                                              color: Colors
-                                                  .black, // 필요하다면 색상도 조절할 수 있습니다.
-                                            ),
-                                          ),
-                                          IconButton(
-                                            icon: Icon(
-                                              value[index].isFavorite
-                                                  ? Icons.close
-                                                  : Icons
-                                                      .check_box_outline_blank,
-                                              color: value[index].isFavorite
-                                                  ? Colors.red
-                                                  : Colors.red,
-                                            ),
-                                            onPressed: () {
-                                              setState(() {
-                                                value[index].isFavorite =
-                                                    !value[index].isFavorite;
-                                              });
-                                            },
-                                          ),
-                                          // 성공 상태 토글 버튼
-                                          if (isPastOrToday)
-                                            Text(
-                                              "성공",
-                                              style: TextStyle(
-                                                fontSize:
-                                                    12, // 여기서 텍스트 크기를 조절합니다.
-                                                color: Colors
-                                                    .black, // 필요하다면 색상도 조절할 수 있습니다.
-                                              ),
-                                            ),
-                                          IconButton(
-                                            icon: Icon(
-                                              value[index].isSuccess
-                                                  ? Icons.check
-                                                  : Icons
-                                                      .check_box_outline_blank,
-                                              color: value[index].isSuccess
-                                                  ? Colors.green
-                                                  : Colors.green,
-                                            ),
-                                            onPressed: () {
-                                              setState(() {
-                                                value[index].isSuccess =
-                                                    !value[index].isSuccess;
-                                              });
-                                            },
-                                          ),
-                                        ],
-                                      ),
+                                      trailing: !isFuture
+                                          ? Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Text(
+                                                  "실패",
+                                                  style: TextStyle(
+                                                    fontSize:
+                                                        12, // 여기서 텍스트 크기를 조절합니다.
+                                                    color: Colors
+                                                        .black, // 필요하다면 색상도 조절할 수 있습니다.
+                                                  ),
+                                                ),
+                                                IconButton(
+                                                  icon: Icon(
+                                                    value[index].isFavorite
+                                                        ? Icons.close
+                                                        : Icons
+                                                            .check_box_outline_blank,
+                                                    color:
+                                                        value[index].isFavorite
+                                                            ? Colors.red
+                                                            : Colors.red,
+                                                  ),
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      value[index].isFavorite =
+                                                          !value[index]
+                                                              .isFavorite;
+                                                    });
+                                                  },
+                                                ),
+                                                // 성공 상태 토글 버튼
+                                                if (isPastOrToday)
+                                                  Text(
+                                                    "성공",
+                                                    style: TextStyle(
+                                                      fontSize:
+                                                          12, // 여기서 텍스트 크기를 조절합니다.
+                                                      color: Colors
+                                                          .black, // 필요하다면 색상도 조절할 수 있습니다.
+                                                    ),
+                                                  ),
+                                                IconButton(
+                                                  icon: Icon(
+                                                    value[index].isSuccess
+                                                        ? Icons.check
+                                                        : Icons
+                                                            .check_box_outline_blank,
+                                                    color:
+                                                        value[index].isSuccess
+                                                            ? Colors.green
+                                                            : Colors.green,
+                                                  ),
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      value[index].isSuccess =
+                                                          !value[index]
+                                                              .isSuccess;
+                                                    });
+                                                  },
+                                                ),
+                                              ],
+                                            )
+                                          : SizedBox(),
                                     ),
                                   ),
                                 ],

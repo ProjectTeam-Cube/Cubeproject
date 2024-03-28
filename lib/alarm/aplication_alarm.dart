@@ -18,7 +18,7 @@ class _AlarmState extends State<Alarm> {
 
     // 3초 후 권한 요청
 
-    Future.delayed(const Duration(seconds: 1),
+    Future.delayed(const Duration(seconds: 5),
         FlutterLocalNotification.requestNotificationPermission());
 
     super.initState();
