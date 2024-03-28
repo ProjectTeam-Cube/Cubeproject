@@ -2,6 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../alarm/aplication_alarm.dart';
+import '../call/modal_dialog.dart';
+import '../call/modal_start.dart';
 import '../user/auth_service.dart';
 import 'home.dart';
 import '../phone_number_list/phone_book.dart';
@@ -58,6 +61,10 @@ class _HomePageState extends State<HomePage> {
               ),
             GestureDetector(
               onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ModalReservation()),
+                );
                 print('알람 아이콘 클릭됨');
               },
               child: Container(
