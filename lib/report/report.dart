@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../appbarAndnavigatorbar/app_bar.dart';
+import '../reservation/reservation_screen.dart';
 
 class ContactRecordScreen extends StatefulWidget {
   @override
@@ -18,6 +19,7 @@ class _ContactRecordScreenState extends State<ContactRecordScreen> {
   ];
 
   String dropdownValue = '3월';
+  int reservationCount = ReservationScreen.reservations.length;
 
   @override
   Widget build(BuildContext context) {
@@ -173,7 +175,7 @@ class _ContactRecordScreenState extends State<ContactRecordScreen> {
                                     BorderRadius.circular(20), // 모서리 둥글게 설정
                               ),
                               child: Text(
-                                '20건',
+                                '$reservationCount건',
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.white, // 텍스트 색상을 배경과 대비되게 설정

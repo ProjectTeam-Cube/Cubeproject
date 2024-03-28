@@ -12,6 +12,9 @@ class ReservationScreen extends StatefulWidget {
 
   @override
   _ReservationScreenState createState() => _ReservationScreenState();
+
+  static List<ReservationInfo> get reservations =>
+      _ReservationScreenState._reservations;
 }
 
 class _ReservationScreenState extends State<ReservationScreen> {
@@ -20,7 +23,10 @@ class _ReservationScreenState extends State<ReservationScreen> {
   List<bool> selectedWeekdays = List.filled(7, false);
   bool repeatNotification = false;
   TextEditingController memoController = TextEditingController();
-  List<ReservationInfo> reservations = [];
+  static List<ReservationInfo> _reservations = [];
+
+  // Getter for accessing the reservations list
+  static List<ReservationInfo> get reservations => _reservations;
 
   @override
   void initState() {
@@ -34,11 +40,12 @@ class _ReservationScreenState extends State<ReservationScreen> {
     if (jsonReservations != null) {
       List<dynamic> decoded = jsonDecode(jsonReservations);
       setState(() {
-        reservations = decoded.map((e) => ReservationInfo.fromJson(e)).toList();
+        _reservations =
+            decoded.map((e) => ReservationInfo.fromJson(e)).toList();
       });
     } else {
       setState(() {
-        reservations = [];
+        _reservations = [];
       });
     }
   }
